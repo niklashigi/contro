@@ -1,6 +1,7 @@
 <h1 align="center">
+  <br>
 	<br>
-	<img width="320" src="/images/header.png" alt="chalk">
+	<img width="320" src="/images/header.png" href="#">
 	<br>
 	<br>
 	<br>
