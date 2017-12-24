@@ -1,0 +1,13 @@
+{
+  "extends": [
+    "tslint:recommended"
+  ],
+  "rules": {
+    "semicolon": ["never"],
+    "interface-name": [false],
+    "quotemark": [true, "single", "avoid-escape"],
+    "arrow-parens": ["ban-single-arg-parens"],
+    "max-classes-per-file": [false]
+  },
+  "include": ["./dist/**/*.ts"]
+}

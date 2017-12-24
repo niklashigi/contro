@@ -1,0 +1,47 @@
+{
+  "name": "contro",
+  "version": "1.0.0",
+  "description": "Unified game controls made easy.",
+  "main": "dist/contro.esm.js",
+  "unpkg": "dist/contro.js",
+  "scripts": {
+    "build": "rollup -c && uglifyjs build/contro.js -cm > build/contro.min.js",
+    "lint": "tslint -p .",
+    "test": "nyc mocha src/**/*.spec.ts --require ts-node/register --watch-extensions ts",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "clean": "rimraf .nyc_output coverage dist"
+  },
+  "repository": "shroudedcode/contro",
+  "keywords": [
+    "game",
+    "controls",
+    "mouse",
+    "keyboard",
+    "gamepad",
+    "library",
+    "abstraction"
+  ],
+  "author": "Niklas Higi <niklas@shroudedcode.com> (https://shroudedcode.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shroudedcode/contro/issues"
+  },
+  "homepage": "https://github.com/shroudedcode/contro#readme",
+  "devDependencies": {
+    "@types/chai": "^4.0.10",
+    "@types/mocha": "^2.2.44",
+    "@types/node": "^8.5.2",
+    "chai": "^4.1.2",
+    "codecov": "^3.0.0",
+    "mocha": "^4.0.1",
+    "nyc": "^11.4.1",
+    "rimraf": "^2.6.2",
+    "rollup": "^0.53.0",
+    "rollup-plugin-typescript": "^0.8.1",
+    "ts-node": "^4.1.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.2",
+    "uglify-es": "^3.2.2"
+  },
+  "dependencies": {}
+}
