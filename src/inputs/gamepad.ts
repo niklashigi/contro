@@ -8,7 +8,7 @@ export class Gamepad {
   private pressedButtons: Set<number> = new Set()
   private gamepadIndex: number
 
-  constructor({ win = window, nav = navigator }: { win: IWindow, nav: INavigator }) {
+  constructor({ win = window, nav = navigator }: { win?: IWindow, nav?: INavigator } = {}) {
     this.window = win
     this.navigator = nav
 
