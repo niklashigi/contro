@@ -90,7 +90,7 @@ function loop() {
 loop()
 ```
 
-> *More documentation coming soon.*
+> Learn more on the [API Documentation](/docs/API.md).
 
 [build-link]: https://travis-ci.org/shroudedcode/contro
 [build-badge]: https://img.shields.io/travis/shroudedcode/contro.svg?style=flat-square
