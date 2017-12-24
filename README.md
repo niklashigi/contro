@@ -1,7 +1,7 @@
 <h1 align="center">
   <br>
 	<br>
-	<img width="320" src="/images/header.png" href="#">
+  <img width="320" src="/images/header.png">
 	<br>
 	<br>
 	<br>
