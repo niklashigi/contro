@@ -4,6 +4,11 @@
   "description": "Unified game controls made easy.",
   "main": "dist/contro.esm.js",
   "unpkg": "dist/contro.js",
+  "files": [
+    "dist/contro.esm.js",
+    "dist/contro.js",
+    "dist/contro.min.js"
+  ],
   "scripts": {
     "lint": "tslint -p .",
     "test": "nyc mocha src/**/*.spec.ts --require ts-node/register --watch-extensions ts",
