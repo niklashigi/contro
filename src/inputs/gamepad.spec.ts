@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import * as Mocha from 'mocha'
-import { IWindow, INavigator, IGamepad } from '../apis'
+import { IGamepad, INavigator, IWindow  } from '../apis'
 import { Vector2 } from '../utils/math'
 import { MockEventTarget } from '../utils/mock'
 import { Gamepad } from './gamepad'
@@ -11,7 +11,7 @@ class MockNavigator extends MockEventTarget implements INavigator {
 
   public gamepads: IGamepad[] = []
 
-  getGamepads() {
+  public getGamepads() {
     return this.gamepads
   }
 
@@ -41,11 +41,11 @@ describe('The `Gamepad` class', () => {
         index: 0,
         buttons: [
           {
-            pressed: false
-          }
+            pressed: false,
+          },
         ],
         axes: [],
-        connected: true
+        connected: true,
       }
 
       win.listeners.gamepadconnected({ gamepad: { index: 0 } })

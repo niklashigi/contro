@@ -1,4 +1,4 @@
-import { IWindow, INavigator, IGamepad } from '../apis'
+import { IGamepad, INavigator, IWindow  } from '../apis'
 
 export class Gamepad {
 
@@ -13,7 +13,7 @@ export class Gamepad {
     this.navigator = nav
 
     this.window.addEventListener('gamepadconnected', ({ gamepad }) => {
-      if(!this.isConnected()) this.gamepadIndex = gamepad.index
+      if (!this.isConnected()) this.gamepadIndex = gamepad.index
     })
 
     this.window.addEventListener('gamepaddisconnected', ({ gamepad }) => {

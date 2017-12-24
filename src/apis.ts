@@ -21,7 +21,6 @@ export interface INavigator {
   getGamepads(): IGamepad[]
 }
 
-
 export interface IGamepad {
   index: number
   buttons: IGamepadButton[]

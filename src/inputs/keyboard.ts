@@ -1,4 +1,4 @@
-import { IDocument } from '../utils/dom'
+import { IDocument } from '../apis'
 
 export class Keyboard {
 
@@ -10,13 +10,13 @@ export class Keyboard {
   constructor({ doc = document }: { doc: IDocument }) {
     this.document = doc
 
-    this.document.addEventListener('keydown', event => {
+    this.document.addEventListener('keydown', (event: any) => {
       const key = event.key.toLowerCase()
       this.pressedKeys.add(key)
       this.queuedKeys.add(key)
     })
 
-    this.document.addEventListener('keyup', event => {
+    this.document.addEventListener('keyup', (event: any) => {
       const key = event.key.toLowerCase()
       this.pressedKeys.delete(key)
       this.queuedKeys.delete(key)

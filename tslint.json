@@ -4,10 +4,13 @@
   ],
   "rules": {
     "semicolon": ["never"],
-    "interface-name": [false],
     "quotemark": [true, "single", "avoid-escape"],
     "arrow-parens": ["ban-single-arg-parens"],
-    "max-classes-per-file": [false]
+    "curly": [true, "ignore-same-line"],
+    "object-literal-sort-keys": false,
+    "max-classes-per-file": false,
+    "no-empty-interface": false,
+    "interface-name": false
   },
   "include": ["./dist/**/*.ts"]
 }

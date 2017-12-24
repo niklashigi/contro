@@ -1,4 +1,4 @@
-import { ICanvas, IDocument } from '../utils/dom'
+import { ICanvas, IDocument } from '../apis'
 import { Vector2 } from '../utils/math'
 
 export enum MouseButton {
