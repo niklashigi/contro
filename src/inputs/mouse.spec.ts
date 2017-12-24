@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import * as Mocha from 'mocha'
-import { ICanvas, IDocument } from '../utils/dom'
+import { ICanvas, IDocument } from '../apis'
 import { Vector2 } from '../utils/math'
 import { MockEventTarget } from '../utils/mock'
 import { Mouse, MouseButton } from './mouse'
