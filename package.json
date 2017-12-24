@@ -1,14 +1,15 @@
 {
   "name": "contro",
-  "version": "1.0.0",
+  "version": "0.0.0-semantically-released",
   "description": "Unified game controls made easy.",
   "main": "dist/contro.esm.js",
   "unpkg": "dist/contro.js",
   "scripts": {
-    "build": "rollup -c && uglifyjs build/contro.js -cm > build/contro.min.js",
     "lint": "tslint -p .",
     "test": "nyc mocha src/**/*.spec.ts --require ts-node/register --watch-extensions ts",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "build": "rollup -c && uglifyjs build/contro.js -cm > build/contro.min.js",
+    "release": "semantic-release",
     "clean": "rimraf .nyc_output coverage dist"
   },
   "repository": "shroudedcode/contro",
@@ -41,7 +42,8 @@
     "ts-node": "^4.1.0",
     "tslint": "^5.8.0",
     "typescript": "^2.6.2",
-    "uglify-es": "^3.2.2"
+    "uglify-es": "^3.2.2",
+    "semantic-release": "^11.0.2"
   },
   "dependencies": {}
 }
