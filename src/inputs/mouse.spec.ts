@@ -2,17 +2,8 @@ import { expect } from 'chai'
 import * as Mocha from 'mocha'
 import { ICanvas, IDocument } from '../utils/dom'
 import { Vector2 } from '../utils/math'
+import { MockEventTarget } from '../utils/mock'
 import { Mouse, MouseButton } from './mouse'
-
-class MockEventTarget {
-
-  public listeners: { [id: string]: (event?: any) => void } = {}
-
-  public addEventListener(type: string, listener: (event: any) => void) {
-    this.listeners[type] = listener
-  }
-
-}
 
 class MockCanvas extends MockEventTarget implements ICanvas {
 
