@@ -1,7 +1,7 @@
 {
   "name": "contro",
   "version": "0.0.0-semantically-released",
-  "description": "Unified game controls made easy.",
+  "description": "Game controls done right.",
   "main": "dist/contro.esm.js",
   "unpkg": "dist/contro.js",
   "files": [

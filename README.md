@@ -1,32 +1,17 @@
-<p align="center">
-  <img src="/images/header.png" align="center">
-</p>
+<h1 align="center">
+	<br>
+	<img width="320" src="/images/header.png" alt="chalk">
+	<br>
+	<br>
+	<br>
+</h1>
 
-<h2 align="center">
-  Unified Game Controls
-</h2>
+> Game controls done right.
 
-<p align="center">
-  <em>
-  Keyboard
-  · Mouse
-  · Gamepad
-  –
-  All under one simple API
-  </em>
-</p>
-
-<p align="center">
-  <a href="https://travis-ci.org/shroudedcode/contro">
-    <img alt="Travis CI" src="https://img.shields.io/travis/shroudedcode/contro.svg?style=flat-square">
-  </a>
-  <a href="https://www.npmjs.com/package/contro">
-    <img alt="npm version" src="https://img.shields.io/npm/v/contro.svg?style=flat-square">
-  </a>
-  <a href="https://www.npmjs.com/package/contro">
-    <img alt="monthly downloads" src="https://img.shields.io/npm/dm/contro.svg?style=flat-square">
-  </a>
-</p>
+[![build status][build-badge]][build-link]
+[![coverage][coverage-badge]][coverage-link]
+[![npm version][npm-version-badge]][npm-link]
+[![monhtly downloads][npm-downloads-badge]][npm-link]
 
 ## Introducation
 
@@ -105,3 +90,13 @@ loop()
 ```
 
 > *More documentation coming soon.*
+
+[build-link]: https://travis-ci.org/shroudedcode/contro
+[build-badge]: https://img.shields.io/travis/shroudedcode/contro.svg?style=flat-square
+
+[coverage-link]: https://codecov.io/gh/shroudedcode/contro
+[coverage-badge]: https://img.shields.io/codecov/c/github/shroudedcode/contro.svg?style=flat-square
+
+[npm-link]: https://www.npmjs.com/package/contro
+[npm-version-badge]: https://img.shields.io/npm/v/contro.svg?style=flat-square
+[npm-downloads-badge]: https://img.shields.io/npm/dm/contro.svg?style=flat-square
