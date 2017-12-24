@@ -12,7 +12,7 @@ describe('The `Keyboard` class', () => {
   const doc = new MockDocument()
   const keyboard = new Keyboard({ doc })
 
-  it('should register the required listener on the document', () => {
+  it('should register the required listeners on the document', () => {
     expect(Object.keys(doc.listeners).sort()).to.deep.equal([
       'keydown',
       'keyup',
