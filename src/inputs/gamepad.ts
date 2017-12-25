@@ -33,22 +33,18 @@ export class Gamepad {
     })
   }
 
-  /** Returns whether a gamepad is currently connected. */
   public isConnected() {
     return this.gamepadIndex !== undefined && this.gamepad.connected
   }
 
-  /** The current gamepad instance. */
   private get gamepad(): IGamepad {
     return this.navigator.getGamepads()[this.gamepadIndex]
   }
 
-  /** Returns whether the button is pressed. */
   public isPressed(button: number) {
     return this.isConnected() && this.gamepad.buttons[button].pressed
   }
 
-  /** Returns whether the button was pressed. */
   public wasPressed(button: number) {
     /* istanbul ignore else */
     if (this.isConnected()) {

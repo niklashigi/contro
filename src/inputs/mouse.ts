@@ -7,7 +7,6 @@ export enum MouseButton {
   Right,
 }
 
-/** Representation of the player's mouse. */
 export class Mouse {
 
   private canvas: ICanvas
@@ -49,12 +48,10 @@ export class Mouse {
     on = this.document.addEventListener.bind(this.document)
   }
 
-  /** Returns whether the passed in button is currently pressed. */
   public isPressed(/* istanbul ignore next */ button: MouseButton = MouseButton.Left) {
     return this.pressedButtons.has(button)
   }
 
-  /** Returns whether the passed in mouse button was pressed. */
   public wasPressed(/* istanbul ignore next */ button: MouseButton = MouseButton.Left) {
     if (this.queuedButtons.has(button)) {
       this.queuedButtons.delete(button)
@@ -63,31 +60,26 @@ export class Mouse {
     return false
   }
 
-   /** Returns the movement since the last check. */
   public getPointerMovement() {
     const movement = this.pointerMovement
     this.pointerMovement = new Vector2(0, 0)
     return movement
   }
 
-  /** Returns the scroll distance since the last request. */
   public getScrollDistance() {
     const distance = this.scrollDistance
     this.scrollDistance = 0
     return distance
   }
 
-  /** Requests pointer lock. */
   public lockPointer() {
     this.canvas.requestPointerLock()
   }
 
-  /** Exits the pointer lock. */
   public unlockPointer() {
     this.document.exitPointerLock()
   }
 
-  /** Returns whether the pointer is currently locked. */
   public isPointerLocked() {
     return this.document.pointerLockElement === this.canvas
   }
