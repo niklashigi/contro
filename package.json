@@ -15,7 +15,7 @@
     "lint-md": "remark .",
     "test": "nyc mocha src/**/*.spec.ts --require ts-node/register --watch-extensions ts",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "build": "rollup -c && uglifyjs dist/contro.js -cm > dist/contro.min.js",
+    "build": "rollup -c && uglifyjs dist/contro.js --comments /^!/ -cm -o dist/contro.min.js",
     "release": "semantic-release",
     "clean": "rimraf .nyc_output coverage dist"
   },
