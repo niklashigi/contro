@@ -123,7 +123,7 @@ Similar to `isPressed()`, but only returns `true` at the first [*fetch*](#termin
 * **fetch**: the last time a certain input class method (like `wasPressed()`) was called
 
 [keyboard-events]: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent
-[key-values]: (https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values)
+[key-values]: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
 [mouse-events]: https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent
 [pointer-lock-api]: https://developer.mozilla.org/en-US/docs/Web/API/Pointer_Lock_API
 [gamepad-api]: https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API

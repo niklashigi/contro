@@ -1,0 +1,11 @@
+{
+  "plugins": [
+    "remark-preset-lint-recommended",
+    "remark-preset-lint-markdown-style-guide",
+    "remark-lint-no-empty-url",
+    ["remark-lint-maximum-line-length", false],
+    ["remark-lint-heading-increment", false],
+    ["remark-lint-unordered-list-marker-style", "*"],
+    ["remark-lint-no-duplicate-headings", false]
+  ]
+}
