@@ -50,12 +50,12 @@ export class Mouse {
   }
 
   /** Returns whether the passed in button is currently pressed. */
-  public isPressed(button: MouseButton = MouseButton.Left) {
+  public isPressed(/* istanbul ignore next */ button: MouseButton = MouseButton.Left) {
     return this.pressedButtons.has(button)
   }
 
   /** Returns whether the passed in mouse button was pressed. */
-  public wasPressed(button: MouseButton = MouseButton.Left) {
+  public wasPressed(/* istanbul ignore next */ button: MouseButton = MouseButton.Left) {
     if (this.queuedButtons.has(button)) {
       this.queuedButtons.delete(button)
       return true
