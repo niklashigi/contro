@@ -8,16 +8,28 @@ export class Gamepad {
   private pressedButtons: Set<number> = new Set()
   private gamepadIndex: number
 
-  constructor({ win = window, nav = navigator }: { win?: IWindow, nav?: INavigator } = {}) {
+  constructor(
+    /* istanbul ignore next */
+    { win = window, nav = navigator }: { win?: IWindow, nav?: INavigator } = {},
+  ) {
     this.window = win
     this.navigator = nav
 
     this.window.addEventListener('gamepadconnected', ({ gamepad }) => {
+      /* istanbul ignore else */
       if (!this.isConnected()) this.gamepadIndex = gamepad.index
     })
 
     this.window.addEventListener('gamepaddisconnected', ({ gamepad }) => {
-      this.gamepadIndex = undefined
+      /* istanbul ignore else */
+      if (this.gamepadIndex === gamepad.index) {
+        const gamepads = this.navigator.getGamepads()
+        if (gamepads.length) {
+          this.gamepadIndex = this.navigator.getGamepads()[0].index
+        } else {
+          this.gamepadIndex = undefined
+        }
+      }
     })
   }
 
@@ -38,6 +50,7 @@ export class Gamepad {
 
   /** Returns whether the button was pressed. */
   public wasPressed(button: number) {
+    /* istanbul ignore else */
     if (this.isConnected()) {
       if (this.gamepad.buttons[button].pressed) {
         if (!this.pressedButtons.has(button)) {

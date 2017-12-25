@@ -7,7 +7,10 @@ export class Keyboard {
   private pressedKeys: Set<string> = new Set()
   private queuedKeys: Set<string> = new Set()
 
-  constructor({ doc = document }: { doc?: IDocument } = {}) {
+  constructor(
+    /* istanbul ignore next */
+    { doc = document }: { doc?: IDocument } = {},
+  ) {
     this.document = doc
 
     this.document.addEventListener('keydown', (event: any) => {
