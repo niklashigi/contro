@@ -18,13 +18,19 @@ Creates a new `Keyboard` instance.
 
 Returns whether the given key is currently pressed.
 
-* `key` is the [key value][key-values] of the key
+* `key` is the [*key value*](#terminology) of the key
 
 #### `wasPressed(key)`
 
 Similar to `isPressed()`, but only returns `true` at the first [*fetch*](#terminology) during a press.
 
-* `key` is the [key value][key-values] of the key
+* `key` is the [*key value*](#terminology) of the key
+
+#### `getMovementVector(arrowKeys)`
+
+Returns a `Vector2` of the movement that would occur inside the game with regular arrow key controls.
+
+* `arrowKeys` is the name of an arrow key template (`arrows` or `wasd`) or an array consisting of four [*key values*](#terminology) (e.g. `['w', 'a', 's', 'd']`)
 
 ---
 
@@ -120,6 +126,7 @@ Similar to `isPressed()`, but only returns `true` at the first [*fetch*](#termin
 
 ## Terminology
 
+* **key value**: the [JavaScript key value representation][key-values] of a key on the keyboard
 * **fetch**: the last time a certain input class method (like `wasPressed()`) was called
 
 [keyboard-events]: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent
