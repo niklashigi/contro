@@ -145,25 +145,37 @@ describe('The `Mouse` class', () => {
 
   })
 
-  describe('should have a `getScrollDistance()` method that', () => {
+  describe('should have a `wheel()` method that returns a component that', () => {
 
-    it('returns `0` if no scrolling occurred', () => {
-      expect(mouse.getScrollDistance()).to.equal(0)
+    it('returns the correct label', () => {
+      expect(mouse.wheel().label).to.equal('Mouse wheel')
     })
 
-    it('returns the correct distance after scrolling occurred', () => {
-      canvas.listeners.wheel({ deltaY: 4 })
-      expect(mouse.getScrollDistance()).to.equal(4)
+    it('returns the correct icon', () => {
+      expect(mouse.wheel().icons[0]).to.equal('mouse-wheel')
     })
 
-    it('returns `0` after distance was queried', () => {
-      expect(mouse.getScrollDistance()).to.equal(0)
-    })
+    describe('when queried', () => {
 
-    it('returns the total distance after scrolling occurred multiple times', () => {
-      canvas.listeners.wheel({ deltaY: 8 })
-      canvas.listeners.wheel({ deltaY: 3 })
-      expect(mouse.getScrollDistance()).to.equal(11)
+      it('returns `0` if no scrolling occurred', () => {
+        expect(mouse.wheel().query()).to.equal(0)
+      })
+
+      it('after scrolling occurred, returns the correct distance', () => {
+        canvas.listeners.wheel({ deltaY: 4 })
+        expect(mouse.wheel().query()).to.equal(4)
+      })
+
+      it('after last movement was queried, returns `0`', () => {
+        expect(mouse.wheel().query()).to.equal(0)
+      })
+
+      it('after scrolling occurred multiple times, returns the total distance', () => {
+        canvas.listeners.wheel({ deltaY: 8 })
+        canvas.listeners.wheel({ deltaY: 3 })
+        expect(mouse.wheel().query()).to.equal(11)
+      })
+
     })
 
   })

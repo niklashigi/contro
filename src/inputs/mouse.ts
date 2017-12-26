@@ -93,10 +93,16 @@ export class Mouse {
     }
   }
 
-  public getScrollDistance() {
-    const distance = this.scrollDistance
-    this.scrollDistance = 0
-    return distance
+  public wheel() {
+    return {
+      label: 'Mouse wheel',
+      icons: ['mouse-wheel'],
+      query: () => {
+        const distance = this.scrollDistance
+        this.scrollDistance = 0
+        return distance
+      },
+    }
   }
 
   public lockPointer() {
