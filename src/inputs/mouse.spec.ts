@@ -90,7 +90,7 @@ describe('The `Mouse` class', () => {
       expect(mouse.button('left').query()).to.equal(false)
     })
 
-    describe('when queried with `trigger = true`', () => {
+    describe('when initialized with `trigger = true` and queried', () => {
 
       it('returns `false` when the button is not pressed', () => {
         canvas.listeners.mouseup({ button: 0 })
