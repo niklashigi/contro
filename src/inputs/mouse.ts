@@ -19,7 +19,7 @@ export class Mouse {
     this.canvas = canvas
     this.document = doc
 
-    let on: (type: string, listener: (event: any) => void) => void =
+    const on: (type: string, listener: (event: any) => void) => void =
     this.canvas.addEventListener.bind(this.canvas)
 
     on('mousedown', (event: MouseEvent) => {
@@ -41,8 +41,6 @@ export class Mouse {
       const distance = event.deltaY
       this.scrollDistance += distance
     })
-
-    on = this.document.addEventListener.bind(this.document)
   }
 
   public parseButton(button: string | number): number {
