@@ -52,21 +52,32 @@ export class Keyboard {
     }
   }
 
-  public getMovementVector(arrowKeys: [string, string, string, string] | string): Vector2 {
-    if (typeof arrowKeys === 'string') {
-      arrowKeys = arrowKeys.toLowerCase()
-      if (arrowKeys in arrowKeyTemplates) {
-        arrowKeys = arrowKeyTemplates[arrowKeys]
+  public directionalKeys(keys: [string, string, string, string] | string, label?: string): Control {
+    let name
+    if (typeof keys === 'string') {
+      keys = keys.toLowerCase()
+      if (keys in arrowKeyTemplates) {
+        name = keys
+        keys = arrowKeyTemplates[keys]
       } else {
-        throw new Error(`Arrow key template "${arrowKeys}" not found!`)
+        throw new Error(`Arrow key template "${keys}" not found!`)
       }
+    } else {
+      name = keys.join('').toLowerCase()
     }
-    const vector = new Vector2()
-    if (this.key(arrowKeys[0]).query()) vector.y -= 1
-    if (this.key(arrowKeys[1]).query()) vector.x -= 1
-    if (this.key(arrowKeys[2]).query()) vector.y += 1
-    if (this.key(arrowKeys[3]).query()) vector.x += 1
-    return vector
+    const defaultLabel = `[${name.toUpperCase()}]`
+    return {
+      label: label || defaultLabel,
+      icons: ['keyboard-directional-keys-' + name],
+      query: () => {
+        const vector = new Vector2()
+        if (this.key(keys[0]).query()) vector.y -= 1
+        if (this.key(keys[1]).query()) vector.x -= 1
+        if (this.key(keys[2]).query()) vector.y += 1
+        if (this.key(keys[3]).query()) vector.x += 1
+        return vector
+      },
+    }
   }
 
 }

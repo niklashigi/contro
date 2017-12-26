@@ -75,55 +75,67 @@ describe('The `Keyboard` class', () => {
 
   })
 
-  describe('should have a `getMovementVector()` method that', () => {
+  describe('should have a `directionalKeys()` method that returns a control that', () => {
+
+    it('returns the correct label', () => {
+      expect(keyboard.directionalKeys('wasd').label).to.equal('[WASD]')
+      expect(keyboard.directionalKeys('arrows').label).to.equal('[ARROWS]')
+      expect(keyboard.directionalKeys(['z', 'g', 'h', 'j']).label).to.equal('[ZGHJ]')
+    })
+
+    it('returns the correct icon', () => {
+      expect(keyboard.directionalKeys('wasd').icons[0]).to.equal('keyboard-directional-keys-wasd')
+      expect(keyboard.directionalKeys('arrows').icons[0]).to.equal('keyboard-directional-keys-arrows')
+      expect(keyboard.directionalKeys(['z', 'g', 'h', 'j']).icons[0]).to.equal('keyboard-directional-keys-zghj')
+    })
 
     it("throws an error when the passed in arrow key template doesn't exist", () => {
-      expect(() => keyboard.getMovementVector('wsad')).to.throw(Error, 'Arrow key template "wsad" not found!')
+      expect(() => keyboard.directionalKeys('wsad').query()).to.throw(Error, 'Arrow key template "wsad" not found!')
     })
 
     it('accepts custom sets of arrow keys', () => {
       doc.keyDown('H')
-      expect(keyboard.getMovementVector(['T', 'H', 'U', 'G'])).to.deep.equal(new Vector2(-1, 0))
+      expect(keyboard.directionalKeys(['T', 'H', 'U', 'G']).query()).to.deep.equal(new Vector2(-1, 0))
       doc.keyUp('H')
     })
 
-    describe('with a valid set of arrow keys', () => {
+    describe('when initialized with a valid set of arrow keys and queried', () => {
 
-      const getVector = () => keyboard.getMovementVector('wasd')
+      const dirKeys = () => keyboard.directionalKeys('wasd').query()
 
       it('returns a (0, 0) vector when none of the keys is pressed', () => {
-        expect(getVector()).to.deep.equal(new Vector2(0, 0))
+        expect(dirKeys()).to.deep.equal(new Vector2(0, 0))
       })
 
       it('returns a (-1, 0) vector when only [left] is pressed', () => {
         doc.keyDown('A')
-        expect(getVector()).to.deep.equal(new Vector2(-1, 0))
+        expect(dirKeys()).to.deep.equal(new Vector2(-1, 0))
       })
 
       it('returns a (0, 0) vector when both [left] and [right] is pressed', () => {
         doc.keyDown('D')
-        expect(getVector()).to.deep.equal(new Vector2(0, 0))
+        expect(dirKeys()).to.deep.equal(new Vector2(0, 0))
       })
 
       it('returns a (1, 0) vector when only [right] is pressed', () => {
         doc.keyUp('A')
-        expect(getVector()).to.deep.equal(new Vector2(1, 0))
+        expect(dirKeys()).to.deep.equal(new Vector2(1, 0))
         doc.keyUp('D')
       })
 
       it('returns a (0, -1) vector when only [up] is pressed', () => {
         doc.keyDown('W')
-        expect(getVector()).to.deep.equal(new Vector2(0, -1))
+        expect(dirKeys()).to.deep.equal(new Vector2(0, -1))
       })
 
       it('returns a (0, 0) vector when both [up] and [down] are pressed', () => {
         doc.keyDown('S')
-        expect(getVector()).to.deep.equal(new Vector2(0, 0))
+        expect(dirKeys()).to.deep.equal(new Vector2(0, 0))
       })
 
       it('returns a (0, 1) vector when only [down] is pressed', () => {
         doc.keyUp('W')
-        expect(getVector()).to.deep.equal(new Vector2(0, 1))
+        expect(dirKeys()).to.deep.equal(new Vector2(0, 1))
         doc.keyUp('S')
       })
 
