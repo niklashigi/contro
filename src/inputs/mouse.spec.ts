@@ -66,34 +66,46 @@ describe('The `Mouse` class', () => {
 
   })
 
-  describe('should have an `isPressed()` method that', () => {
+  describe('should have an `button()` method that returns a component that', () => {
 
-    it('returns `true` when the mouse button is pressed', () => {
+    it('returns the correct label for all three buttons', () => {
+      expect(mouse.button('left').label).to.equal('[LMB]')
+      expect(mouse.button('middle').label).to.equal('[MMB]')
+      expect(mouse.button('right').label).to.equal('[RMB]')
+    })
+
+    it('returns the correct icon for all three buttons', () => {
+      expect(mouse.button('left').icons[0]).to.equal('left-mouse-button')
+      expect(mouse.button('middle').icons[0]).to.equal('middle-mouse-button')
+      expect(mouse.button('right').icons[0]).to.equal('right-mouse-button')
+    })
+
+    it('when queried returns `true` the mouse button is pressed', () => {
       canvas.listeners.mousedown({ button: 0 })
-      expect(mouse.isPressed('left')).to.equal(true)
+      expect(mouse.button('left').query()).to.equal(true)
     })
 
-    it('returns `false` when the mouse button is not pressed', () => {
+    it('when queried returns `false` when the mouse button is not pressed', () => {
       canvas.listeners.mouseup({ button: 0 })
-      expect(mouse.isPressed('left')).to.equal(false)
+      expect(mouse.button('left').query()).to.equal(false)
     })
 
-  })
+    describe('when queried with `trigger = true`', () => {
 
-  describe('should have a `wasPressed()` method that', () => {
+      it('returns `false` when the button is not pressed', () => {
+        canvas.listeners.mouseup({ button: 0 })
+        expect(mouse.button('left', true).query()).to.equal(false)
+      })
 
-    it('returns `false` when the button is not pressed', () => {
-      canvas.listeners.mouseup({ button: 0 })
-      expect(mouse.wasPressed('left')).to.equal(false)
-    })
+      it('returns `true` once after the button was pressed', () => {
+        canvas.listeners.mousedown({ button: 0 })
+        expect(mouse.button('left', true).query()).to.equal(true)
+      })
 
-    it('returns `true` once after the button was pressed', () => {
-      canvas.listeners.mousedown({ button: 0 })
-      expect(mouse.wasPressed('left')).to.equal(true)
-    })
+      it('returns `false` after button state was queried', () => {
+        expect(mouse.button('left', true).query()).to.equal(false)
+      })
 
-    it('returns `false` after button state was queried', () => {
-      expect(mouse.wasPressed('left')).to.equal(false)
     })
 
   })

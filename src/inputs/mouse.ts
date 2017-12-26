@@ -1,4 +1,5 @@
 import { ICanvas, IDocument } from '../apis'
+import { Control } from '../models/control'
 import { Vector2 } from '../utils/math'
 
 const mouseButtons = ['left', 'middle', 'right']
@@ -60,18 +61,24 @@ export class Mouse {
     }
   }
 
-  public isPressed(button: string | number) {
+  public button(button: string | number, trigger = false): Control {
     button = this.parseButton(button)
-    return this.pressedButtons.has(button)
-  }
-
-  public wasPressed(button: string | number) {
-    button = this.parseButton(button)
-    if (this.queuedButtons.has(button)) {
-      this.queuedButtons.delete(button)
-      return true
+    return {
+      label: ['[LMB]', '[MMB]', '[RMB]'][button],
+      icons: [['left-mouse-button', 'middle-mouse-button', 'right-mouse-button'][button]],
+      query: () => {
+        button = this.parseButton(button)
+        if (trigger) {
+          if (this.queuedButtons.has(button)) {
+            this.queuedButtons.delete(button)
+            return true
+          }
+          return false
+        } else {
+          return this.pressedButtons.has(button)
+        }
+      },
     }
-    return false
   }
 
   public getPointerMovement() {
