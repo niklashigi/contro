@@ -1,11 +1,7 @@
 import { ICanvas, IDocument } from '../apis'
 import { Vector2 } from '../utils/math'
 
-export enum MouseButton {
-  Left,
-  Middle,
-  Right,
-}
+const mouseButtons = ['left', 'middle', 'right']
 
 export class Mouse {
 
@@ -14,8 +10,8 @@ export class Mouse {
 
   private pointerLocked: boolean = false
   private pointerMovement: Vector2 = new Vector2()
-  private pressedButtons: Set<MouseButton> = new Set()
-  private queuedButtons: Set<MouseButton> = new Set()
+  private pressedButtons: Set<number> = new Set()
+  private queuedButtons: Set<number> = new Set()
   private scrollDistance = 0
 
   constructor({ canvas, doc = document }: { canvas: ICanvas, doc?: IDocument }) {
@@ -48,11 +44,29 @@ export class Mouse {
     on = this.document.addEventListener.bind(this.document)
   }
 
-  public isPressed(/* istanbul ignore next */ button: MouseButton = MouseButton.Left) {
+  public parseButton(button: string | number): number {
+    if (typeof button === 'string') {
+      if (mouseButtons.includes(button)) {
+        return mouseButtons.indexOf(button)
+      } else {
+        throw new Error(`There is no mouse button called "${button}"!`)
+      }
+    } else {
+      if (button < mouseButtons.length) {
+        return button
+      } else {
+        throw new Error(`There is no mouse button with the index ${button}!`)
+      }
+    }
+  }
+
+  public isPressed(button: string | number) {
+    button = this.parseButton(button)
     return this.pressedButtons.has(button)
   }
 
-  public wasPressed(/* istanbul ignore next */ button: MouseButton = MouseButton.Left) {
+  public wasPressed(button: string | number) {
+    button = this.parseButton(button)
     if (this.queuedButtons.has(button)) {
       this.queuedButtons.delete(button)
       return true

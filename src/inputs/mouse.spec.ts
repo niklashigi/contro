@@ -3,7 +3,7 @@ import * as Mocha from 'mocha'
 import { ICanvas, IDocument } from '../apis'
 import { Vector2 } from '../utils/math'
 import { MockEventTarget } from '../utils/mock'
-import { Mouse, MouseButton } from './mouse'
+import { Mouse } from './mouse'
 
 class MockCanvas extends MockEventTarget implements ICanvas {
 
@@ -42,16 +42,40 @@ describe('The `Mouse` class', () => {
     ].sort())
   })
 
+  describe('should have a `parseButton()` method that', () => {
+
+    it('correctly parses button names', () => {
+      expect(mouse.parseButton('left')).to.equal(0)
+      expect(mouse.parseButton('middle')).to.equal(1)
+      expect(mouse.parseButton('right')).to.equal(2)
+    })
+
+    it('returns button numbers unchanged', () => {
+      expect(mouse.parseButton(0)).to.equal(0)
+      expect(mouse.parseButton(1)).to.equal(1)
+      expect(mouse.parseButton(2)).to.equal(2)
+    })
+
+    it("throws an error when the named button doesn't exist", () => {
+      expect(() => mouse.parseButton('lul')).to.throw(Error, 'There is no mouse button called "lul"!')
+    })
+
+    it('throws an error when the button number is out of range', () => {
+      expect(() => mouse.parseButton(42)).to.throw(Error, 'There is no mouse button with the index 42!')
+    })
+
+  })
+
   describe('should have an `isPressed()` method that', () => {
 
     it('returns `true` when the mouse button is pressed', () => {
-      canvas.listeners.mousedown({ button: MouseButton.Left })
-      expect(mouse.isPressed(MouseButton.Left)).to.equal(true)
+      canvas.listeners.mousedown({ button: 0 })
+      expect(mouse.isPressed('left')).to.equal(true)
     })
 
     it('returns `false` when the mouse button is not pressed', () => {
-      canvas.listeners.mouseup({ button: MouseButton.Left })
-      expect(mouse.isPressed(MouseButton.Left)).to.equal(false)
+      canvas.listeners.mouseup({ button: 0 })
+      expect(mouse.isPressed('left')).to.equal(false)
     })
 
   })
@@ -59,17 +83,17 @@ describe('The `Mouse` class', () => {
   describe('should have a `wasPressed()` method that', () => {
 
     it('returns `false` when the button is not pressed', () => {
-      canvas.listeners.mouseup({ button: MouseButton.Left })
-      expect(mouse.wasPressed(MouseButton.Left)).to.equal(false)
+      canvas.listeners.mouseup({ button: 0 })
+      expect(mouse.wasPressed('left')).to.equal(false)
     })
 
     it('returns `true` once after the button was pressed', () => {
-      canvas.listeners.mousedown({ button: MouseButton.Left })
-      expect(mouse.wasPressed(MouseButton.Left)).to.equal(true)
+      canvas.listeners.mousedown({ button: 0 })
+      expect(mouse.wasPressed('left')).to.equal(true)
     })
 
     it('returns `false` after button state was queried', () => {
-      expect(mouse.wasPressed(MouseButton.Left)).to.equal(false)
+      expect(mouse.wasPressed('left')).to.equal(false)
     })
 
   })
