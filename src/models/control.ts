@@ -1,11 +1,9 @@
-import { Vector2 } from '../utils/math'
-
-export interface Control {
+export interface Control<QueryType> {
 
   label: string
 
   icons: string[]
 
-  query(): boolean | Vector2 | number
+  query(): QueryType
 
 }

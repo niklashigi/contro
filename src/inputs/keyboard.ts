@@ -33,7 +33,7 @@ export class Keyboard {
     })
   }
 
-  public key(key: string, trigger = false): Control {
+  public key(key: string, trigger = false): Control<boolean> {
     key = key.toLowerCase()
     return {
       label: key.toUpperCase(),
@@ -52,7 +52,7 @@ export class Keyboard {
     }
   }
 
-  public directionalKeys(keys: [string, string, string, string] | string, label?: string): Control {
+  public directionalKeys(keys: [string, string, string, string] | string, label?: string): Control<Vector2> {
     let name
     if (typeof keys === 'string') {
       keys = keys.toLowerCase()

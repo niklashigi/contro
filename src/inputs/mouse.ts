@@ -61,7 +61,7 @@ export class Mouse {
     }
   }
 
-  public button(button: string | number, trigger = false): Control {
+  public button(button: string | number, trigger = false): Control<boolean> {
     button = this.parseButton(button)
     return {
       label: ['[LMB]', '[MMB]', '[RMB]'][button],
@@ -81,7 +81,7 @@ export class Mouse {
     }
   }
 
-  public pointer(): Control {
+  public pointer(): Control<Vector2> {
     return {
       label: 'Cursor',
       icons: ['mouse-pointer'],

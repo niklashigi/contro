@@ -42,7 +42,7 @@ export class Gamepad {
     return this.navigator.getGamepads()[this.gamepadIndex]
   }
 
-  public button(button: number, trigger = false): Control {
+  public button(button: number, trigger = false): Control<boolean> {
     return {
       label: `(${button})`,
       icons: ['gamepad-button-' + button],
