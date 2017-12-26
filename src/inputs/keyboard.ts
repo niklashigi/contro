@@ -1,5 +1,5 @@
 import { IDocument } from '../apis'
-import { Control } from '../models/control'
+import { Control } from '../core/control'
 import { Vector2 } from '../utils/math'
 
 const arrowKeyTemplates: { [name: string]: [string, string, string, string] } = {

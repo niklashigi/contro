@@ -1,5 +1,5 @@
 import { IGamepad, INavigator, IWindow  } from '../apis'
-import { Control  } from '../models/control'
+import { Control  } from '../core/control'
 
 export class Gamepad {
 
