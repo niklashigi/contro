@@ -1,4 +1,5 @@
 import { IGamepad, INavigator, IWindow  } from '../apis'
+import { Control  } from '../models/control'
 
 export class Gamepad {
 
@@ -41,23 +42,29 @@ export class Gamepad {
     return this.navigator.getGamepads()[this.gamepadIndex]
   }
 
-  public isPressed(button: number) {
-    return this.isConnected() && this.gamepad.buttons[button].pressed
-  }
-
-  public wasPressed(button: number) {
-    /* istanbul ignore else */
-    if (this.isConnected()) {
-      if (this.gamepad.buttons[button].pressed) {
-        if (!this.pressedButtons.has(button)) {
-          this.pressedButtons.add(button)
-          return true
+  public button(button: number, trigger = false): Control {
+    return {
+      label: `(${button})`,
+      icons: ['gamepad-button-' + button],
+      query: () => {
+        if (trigger) {
+          /* istanbul ignore else */
+          if (this.isConnected()) {
+            if (this.gamepad.buttons[button].pressed) {
+              if (!this.pressedButtons.has(button)) {
+                this.pressedButtons.add(button)
+                return true
+              }
+            } else {
+              this.pressedButtons.delete(button)
+            }
+          }
+          return false
+        } else {
+          return this.isConnected() && this.gamepad.buttons[button].pressed
         }
-      } else {
-        this.pressedButtons.delete(button)
-      }
+      },
     }
-    return false
   }
 
 }

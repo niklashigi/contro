@@ -95,12 +95,16 @@ describe('The `Gamepad` class', () => {
 
     const { win, nav, gamepad } = mockPack()
 
-    it('should have an `isPressed()` method that returns `false`', () => {
-      expect(gamepad.isPressed(0)).to.equal(false)
-    })
+    describe('should have an `button()` method that returns a component that', () => {
 
-    it('should have a `wasPressed()` method that returns `false`', () => {
-      expect(gamepad.isPressed(0)).to.equal(false)
+      it('when queried `false`', () => {
+        expect(gamepad.button(0).query()).to.equal(false)
+      })
+
+      it('should have a `wasPressed()` method that returns `false`', () => {
+        expect(gamepad.button(0, true).query()).to.equal(false)
+      })
+
     })
 
   })
@@ -122,33 +126,33 @@ describe('The `Gamepad` class', () => {
 
     win.listeners.gamepadconnected({ gamepad: { index: 0 } })
 
-    describe('should have an `isPressed()` method that', () => {
+    describe('should have a `button()` method that returns a component that', () => {
 
       it('returns `false` when the button is not pressed', () => {
-        expect(gamepad.isPressed(0)).to.equal(false)
+        expect(gamepad.button(0).query()).to.equal(false)
       })
 
       it('returns `true` when the button is pressed', () => {
         nav.gamepads[0].buttons[0].pressed = true
-        expect(gamepad.isPressed(0)).to.equal(true)
+        expect(gamepad.button(0).query()).to.equal(true)
       })
 
-    })
+      describe('when initialized with `trigger = true`', () => {
 
-    describe('should have a `wasPressed()` method that', () => {
+        it('returns `false` when the key is not pressed', () => {
+          nav.gamepads[0].buttons[0].pressed = false
+          expect(gamepad.button(0, true).query()).to.equal(false)
+        })
 
-      it('returns `false` when the key is not pressed', () => {
-        nav.gamepads[0].buttons[0].pressed = false
-        expect(gamepad.wasPressed(0)).to.equal(false)
-      })
+        it('returns `true` once after the key was pressed', () => {
+          nav.gamepads[0].buttons[0].pressed = true
+          expect(gamepad.button(0, true).query()).to.equal(true)
+        })
 
-      it('returns `true` once after the key was not pressed', () => {
-        nav.gamepads[0].buttons[0].pressed = true
-        expect(gamepad.wasPressed(0)).to.equal(true)
-      })
+        it('returns `false` after the key state was queried', () => {
+          expect(gamepad.button(0, true).query()).to.equal(false)
+        })
 
-      it('returns `false` after the key state was queried', () => {
-        expect(gamepad.wasPressed(0)).to.equal(false)
       })
 
     })
