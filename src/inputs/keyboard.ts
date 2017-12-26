@@ -1,4 +1,5 @@
 import { IDocument } from '../apis'
+import { Control } from '../models/control'
 import { Vector2 } from '../utils/math'
 
 const arrowKeyTemplates: { [name: string]: [string, string, string, string] } = {
@@ -32,18 +33,23 @@ export class Keyboard {
     })
   }
 
-  public isPressed(key: string) {
+  public key(key: string, trigger = false): Control {
     key = key.toLowerCase()
-    return this.pressedKeys.has(key)
-  }
-
-  public wasPressed(key: string) {
-    key = key.toLowerCase()
-    if (this.queuedKeys.has(key)) {
-      this.queuedKeys.delete(key)
-      return true
+    return {
+      label: key.toUpperCase(),
+      icons: ['keyboard-key-' + key],
+      query: () => {
+        if (trigger) {
+          if (this.queuedKeys.has(key)) {
+            this.queuedKeys.delete(key)
+            return true
+          }
+          return false
+        } else {
+          return this.pressedKeys.has(key)
+        }
+      },
     }
-    return false
   }
 
   public getMovementVector(arrowKeys: [string, string, string, string] | string): Vector2 {
@@ -56,10 +62,10 @@ export class Keyboard {
       }
     }
     const vector = new Vector2()
-    if (this.isPressed(arrowKeys[0])) vector.y -= 1
-    if (this.isPressed(arrowKeys[1])) vector.x -= 1
-    if (this.isPressed(arrowKeys[2])) vector.y += 1
-    if (this.isPressed(arrowKeys[3])) vector.x += 1
+    if (this.key(arrowKeys[0]).query()) vector.y -= 1
+    if (this.key(arrowKeys[1]).query()) vector.x -= 1
+    if (this.key(arrowKeys[2]).query()) vector.y += 1
+    if (this.key(arrowKeys[3]).query()) vector.x += 1
     return vector
   }
 

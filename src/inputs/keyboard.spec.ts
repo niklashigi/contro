@@ -29,37 +29,49 @@ describe('The `Keyboard` class', () => {
     ].sort())
   })
 
-  describe('should have an `isPressed()` method that', () => {
+  describe('should have a `key()` method that returns a control that', () => {
 
-    it('returns `true` when the key is pressed', () => {
-      doc.keyDown('G')
-      expect(keyboard.isPressed('G')).to.equal(true)
+    it('returns the correct label', () => {
+      expect(keyboard.key('G').label).to.equal('G')
     })
 
-    it('returns `false` when the key is not pressed', () => {
-      doc.keyUp('G')
-      expect(keyboard.isPressed('G')).to.equal(false)
+    it('returns the correct icon', () => {
+      expect(keyboard.key('G').icons[0]).to.equal('keyboard-key-g')
     })
 
-  })
+    describe('when queried', () => {
 
-  describe('should have a `wasPressed()` method that', () => {
+      it('returns `true` when the key is pressed', () => {
+        doc.keyDown('G')
+        expect(keyboard.key('G').query()).to.equal(true)
+      })
+
+      it('returns `false` when the key is not pressed', () => {
+        doc.keyUp('G')
+        expect(keyboard.key('G').query()).to.equal(false)
+      })
+
+    })
+
+    describe('when initialized with `trigger = true` and queried', () => {
 
       it('returns `false` when the key is not pressed', () => {
         doc.keyUp('Z')
-        expect(keyboard.wasPressed('Z')).to.equal(false)
+        expect(keyboard.key('Z', true).query()).to.equal(false)
       })
 
       it('returns `true` once after the button was pressed', () => {
         doc.keyDown('Z')
-        expect(keyboard.wasPressed('Z')).to.equal(true)
+        expect(keyboard.key('Z', true).query()).to.equal(true)
       })
 
       it('returns `false` after button state was queried', () => {
-        expect(keyboard.wasPressed('Z')).to.equal(false)
+        expect(keyboard.key('Z', true).query()).to.equal(false)
       })
 
       doc.keyUp('Z')
+
+    })
 
   })
 
