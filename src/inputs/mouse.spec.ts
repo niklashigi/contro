@@ -110,25 +110,37 @@ describe('The `Mouse` class', () => {
 
   })
 
-  describe('should have a `getPointerMovement()` method that', () => {
+  describe('should have a `pointer()` method that returns a component that', () => {
 
-    it('returns a (0, 0) vector if no movement occurred', () => {
-      expect(mouse.getPointerMovement()).to.deep.equal(new Vector2())
+    it('returns the correct label', () => {
+      expect(mouse.pointer().label).to.equal('Cursor')
     })
 
-    it('returns the correct movement vector after a single movement occurred', () => {
-      canvas.listeners.mousemove({ movementX: 1, movementY: 2 })
-      expect(mouse.getPointerMovement()).to.deep.equal(new Vector2(1, 2))
+    it('returns the correct icon', () => {
+      expect(mouse.pointer().icons[0]).to.equal('mouse-pointer')
     })
 
-    it('returns a (0, 0) vector after movement was queried', () => {
-      expect(mouse.getPointerMovement()).to.deep.equal(new Vector2())
-    })
+    describe('when queried', () => {
 
-    it('returns the total movement vector after multiple movements occurred', () => {
-      canvas.listeners.mousemove({ movementX: 1, movementY: 2 })
-      canvas.listeners.mousemove({ movementX: 3, movementY: 5 })
-      expect(mouse.getPointerMovement()).to.deep.equal(new Vector2(4, 7))
+      it('returns a (0, 0) vector if no movement occurred', () => {
+        expect(mouse.pointer().query()).to.deep.equal(new Vector2())
+      })
+
+      it('returns the correct movement vector after a single movement occurred', () => {
+        canvas.listeners.mousemove({ movementX: 1, movementY: 2 })
+        expect(mouse.pointer().query()).to.deep.equal(new Vector2(1, 2))
+      })
+
+      it('after movement returns a (0, 0) vector', () => {
+        expect(mouse.pointer().query()).to.deep.equal(new Vector2())
+      })
+
+      it('after multiple movements occurred, returns the total movement vector', () => {
+        canvas.listeners.mousemove({ movementX: 1, movementY: 2 })
+        canvas.listeners.mousemove({ movementX: 3, movementY: 5 })
+        expect(mouse.pointer().query()).to.deep.equal(new Vector2(4, 7))
+      })
+
     })
 
   })

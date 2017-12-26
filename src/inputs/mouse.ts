@@ -81,10 +81,16 @@ export class Mouse {
     }
   }
 
-  public getPointerMovement() {
-    const movement = this.pointerMovement
-    this.pointerMovement = new Vector2(0, 0)
-    return movement
+  public pointer(): Control {
+    return {
+      label: 'Cursor',
+      icons: ['mouse-pointer'],
+      query: () => {
+        const movement = this.pointerMovement
+        this.pointerMovement = new Vector2(0, 0)
+        return movement
+      },
+    }
   }
 
   public getScrollDistance() {
