@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import * as Mocha from 'mocha'
 import { ICanvas, IDocument } from '../apis'
+import { store } from '../index'
 import { Vector2 } from '../utils/math'
 import { MockEventTarget } from '../utils/mock'
 import { Keyboard } from './keyboard'
@@ -49,6 +50,10 @@ describe('The `Keyboard` class', () => {
       it('returns `false` when the key is not pressed', () => {
         doc.keyUp('G')
         expect(keyboard.key('G').query()).to.equal(false)
+      })
+
+      it('sets `store.preferGamepad` to `false`', () => {
+        expect(store.preferGamepad).to.equal(false)
       })
 
     })

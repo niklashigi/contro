@@ -1,5 +1,6 @@
 import { ICanvas, IDocument } from '../apis'
 import { Control } from '../core/control'
+import { store } from '../index'
 import { Vector2 } from '../utils/math'
 
 const mouseButtons = ['left', 'middle', 'right']
@@ -23,21 +24,25 @@ export class Mouse {
     this.canvas.addEventListener.bind(this.canvas)
 
     on('mousedown', (event: MouseEvent) => {
+      store.preferGamepad = false
       this.pressedButtons.add(event.button)
       this.queuedButtons.add(event.button)
     })
 
     on('mouseup', (event: MouseEvent) => {
+      store.preferGamepad = false
       this.pressedButtons.delete(event.button)
       this.queuedButtons.delete(event.button)
     })
 
     on('mousemove', (event: MouseEvent) => {
+      store.preferGamepad = false
       this.pointerMovement.x += event.movementX
       this.pointerMovement.y += event.movementY
     })
 
     on('wheel', (event: WheelEvent) => {
+      store.preferGamepad = false
       const distance = event.deltaY
       this.scrollDistance += distance
     })

@@ -1,5 +1,6 @@
 import { IDocument } from '../apis'
 import { Control } from '../core/control'
+import { store } from '../index'
 import { Vector2 } from '../utils/math'
 
 const arrowKeyTemplates: { [name: string]: [string, string, string, string] } = {
@@ -21,12 +22,14 @@ export class Keyboard {
     this.document = doc
 
     this.document.addEventListener('keydown', (event: any) => {
+      store.preferGamepad = false
       const key = event.key.toLowerCase()
       this.pressedKeys.add(key)
       this.queuedKeys.add(key)
     })
 
     this.document.addEventListener('keyup', (event: any) => {
+      store.preferGamepad = false
       const key = event.key.toLowerCase()
       this.pressedKeys.delete(key)
       this.queuedKeys.delete(key)

@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import * as Mocha from 'mocha'
 import { IGamepad, INavigator, IWindow  } from '../apis'
+import { store } from '../index'
 import { Vector2 } from '../utils/math'
 import { MockEventTarget } from '../utils/mock'
 import { Gamepad } from './gamepad'
@@ -52,41 +53,35 @@ describe('The `Gamepad` class', () => {
         ],
         axes: [],
         connected: true,
+        timestamp: 0,
       }
 
       win.listeners.gamepadconnected({ gamepad: { index: 0 } })
       expect(gamepad.isConnected()).to.equal(true)
     })
 
-    it('returns `false` after gamepad was disconnected', () => {
-      const disconnectedGamepad = nav.gamepads.pop()
-      disconnectedGamepad.connected = false
+    it('returns `false` after the gamepad was disconnected', () => {
+      nav.gamepads.pop()
       win.listeners.gamepaddisconnected({ gamepad: { index: 0 } })
       expect(gamepad.isConnected()).to.equal(false)
     })
 
-    it('returns `true` again after another gamepad was connected', () => {
+    it('returns `true` again after a gamepad was connected', () => {
       nav.gamepads[0] = {
         index: 0,
         buttons: [],
         axes: [],
         connected: true,
+        timestamp: 0,
       }
 
       win.listeners.gamepadconnected({ gamepad: { index: 0 } })
       expect(gamepad.isConnected()).to.equal(true)
     })
 
-    it('returns `true` after one of two gamepads disconnected', () => {
-      nav.gamepads[1] = {
-        index: 1,
-        buttons: [],
-        axes: [],
-        connected: true,
-      }
-      win.listeners.gamepadconnected({ gamepad: { index: 1 } })
+    after(() => {
+      nav.gamepads.pop()
       win.listeners.gamepaddisconnected({ gamepad: { index: 0 } })
-      expect(gamepad.isConnected()).to.equal(true)
     })
 
   })
@@ -95,13 +90,17 @@ describe('The `Gamepad` class', () => {
 
     const { win, nav, gamepad } = mockPack()
 
+    it('should set `store.preferGamepad` to `false`', () => {
+      expect(store.preferGamepad).to.equal(false)
+    })
+
     describe('should have an `button()` method that returns a component that', () => {
 
       it('when queried `false`', () => {
         expect(gamepad.button(0).query()).to.equal(false)
       })
 
-      it('should have a `wasPressed()` method that returns `false`', () => {
+      it('when initialized with `trigger = true` and queried returns `false`', () => {
         expect(gamepad.button(0, true).query()).to.equal(false)
       })
 
@@ -113,18 +112,25 @@ describe('The `Gamepad` class', () => {
 
     const { win, nav, gamepad } = mockPack()
 
-    nav.gamepads[0] = {
-      index: 0,
-      buttons: [
-        {
-          pressed: false,
-        },
-      ],
-      axes: [],
-      connected: true,
-    }
+    before(() => {
+      nav.gamepads[0] = {
+        index: 0,
+        buttons: [
+          {
+            pressed: false,
+          },
+        ],
+        axes: [],
+        connected: true,
+        timestamp: 0,
+      }
 
-    win.listeners.gamepadconnected({ gamepad: { index: 0 } })
+      win.listeners.gamepadconnected({ gamepad: { index: 0 } })
+    })
+
+    it('should set `store.preferGamepad` to `true`', () => {
+      expect(store.preferGamepad).to.equal(true)
+    })
 
     describe('should have a `button()` method that returns a component that', () => {
 

@@ -1,5 +1,6 @@
 import { IGamepad, INavigator, IWindow  } from '../apis'
 import { Control  } from '../core/control'
+import { store } from '../index'
 
 export class Gamepad {
 
@@ -8,6 +9,7 @@ export class Gamepad {
 
   private pressedButtons: Set<number> = new Set()
   private gamepadIndex: number
+  private gamepadTimestamp = 0
 
   constructor(
     /* istanbul ignore next */
@@ -18,18 +20,17 @@ export class Gamepad {
 
     this.window.addEventListener('gamepadconnected', ({ gamepad }) => {
       /* istanbul ignore else */
-      if (!this.isConnected()) this.gamepadIndex = gamepad.index
+      if (!this.isConnected()) {
+        this.gamepadIndex = gamepad.index
+        store.preferGamepad = true
+      }
     })
 
     this.window.addEventListener('gamepaddisconnected', ({ gamepad }) => {
       /* istanbul ignore else */
       if (this.gamepadIndex === gamepad.index) {
-        const gamepads = this.navigator.getGamepads()
-        if (gamepads.length) {
-          this.gamepadIndex = this.navigator.getGamepads()[0].index
-        } else {
-          this.gamepadIndex = undefined
-        }
+        this.gamepadIndex = undefined
+        store.preferGamepad = false
       }
     })
   }
@@ -39,30 +40,31 @@ export class Gamepad {
   }
 
   private get gamepad(): IGamepad {
-    return this.navigator.getGamepads()[this.gamepadIndex]
+    const gamepad = this.navigator.getGamepads()[this.gamepadIndex]
+    if (gamepad.timestamp > this.gamepadTimestamp) store.preferGamepad = true
+    this.gamepadTimestamp = gamepad.timestamp
+    return gamepad
   }
 
   public button(button: number, trigger = false): Control<boolean> {
     return {
       label: `(${button})`,
       icons: ['gamepad-button-' + button],
-      query: () => {
-        if (trigger) {
-          /* istanbul ignore else */
-          if (this.isConnected()) {
-            if (this.gamepad.buttons[button].pressed) {
-              if (!this.pressedButtons.has(button)) {
-                this.pressedButtons.add(button)
-                return true
-              }
-            } else {
-              this.pressedButtons.delete(button)
+      query: trigger ? () => {
+        /* istanbul ignore else */
+        if (this.isConnected()) {
+          if (this.gamepad.buttons[button].pressed) {
+            if (!this.pressedButtons.has(button)) {
+              this.pressedButtons.add(button)
+              return true
             }
+          } else {
+            this.pressedButtons.delete(button)
           }
-          return false
-        } else {
-          return this.isConnected() && this.gamepad.buttons[button].pressed
         }
+        return false
+      } : () => {
+        return this.isConnected() && this.gamepad.buttons[button].pressed
       },
     }
   }
