@@ -26,6 +26,7 @@ export class Keyboard {
       const key = event.key.toLowerCase()
       this.pressedKeys.add(key)
       this.queuedKeys.add(key)
+      return false
     })
 
     this.document.addEventListener('keyup', (event: any) => {
@@ -33,6 +34,7 @@ export class Keyboard {
       const key = event.key.toLowerCase()
       this.pressedKeys.delete(key)
       this.queuedKeys.delete(key)
+      return false
     })
   }
 
