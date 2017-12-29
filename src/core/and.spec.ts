@@ -3,7 +3,7 @@ import * as Mocha from 'mocha'
 import { and } from './and'
 import { Control } from './control'
 
-describe('The `and()` chaining function', () => {
+describe('The `and()` operator function', () => {
 
   const controlA: Control<boolean> = {
     label: '[A]',

@@ -50,6 +50,7 @@ export class Gamepad {
     return {
       label: `(${button})`,
       icons: ['gamepad-button-' + button],
+      fromGamepad: true,
       query: trigger ? () => {
         /* istanbul ignore else */
         if (this.isConnected()) {
