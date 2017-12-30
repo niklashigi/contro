@@ -10,7 +10,6 @@
     "dist/contro.min.js"
   ],
   "scripts": {
-    "commitmsg": "commitlint -e $GIT_PARAMS",
     "precommit": "npm run verify",
     "verify": "run-s lint verify:test build",
     "verify:test": "npm run test -- --reporter progress --forbid-pending --forbid-only",
@@ -41,8 +40,6 @@
   },
   "homepage": "https://github.com/shroudedcode/contro#readme",
   "devDependencies": {
-    "@commitlint/cli": "^5.2.8",
-    "@commitlint/config-conventional": "^5.2.3",
     "@types/chai": "^4.0.10",
     "@types/mocha": "^2.2.44",
     "@types/node": "^8.5.2",
