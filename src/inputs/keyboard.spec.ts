@@ -95,6 +95,11 @@ describe('The `Keyboard` class', () => {
       doc.keyUp('H')
     })
 
+    it('throws an error when the given number of keys is not four', () => {
+      expect(() => keyboard.directionalKeys(['c'])).to
+        .throw(Error, 'Directional key templates have to consist of four keys!')
+    })
+
     describe('when initialized with a valid set of arrow keys and queried', () => {
 
       const dirKeys = () => keyboard.directionalKeys('wasd').query()
