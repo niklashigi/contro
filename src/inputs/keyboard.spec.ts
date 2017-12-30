@@ -79,13 +79,14 @@ describe('The `Keyboard` class', () => {
   describe('should have a `directionalKeys()` method that returns a control that', () => {
 
     it('returns the correct label', () => {
-      expect(keyboard.directionalKeys('wasd').label).to.equal('[WASD]')
-      expect(keyboard.directionalKeys('arrows').label).to.equal('[ARROWS]')
-      expect(keyboard.directionalKeys(['z', 'g', 'h', 'j']).label).to.equal('[ZGHJ]')
+      expect(keyboard.directionalKeys('wasd').label).to.equal('WASD')
+      expect(keyboard.directionalKeys('arrows').label).to.equal('Arrow keys')
+      expect(keyboard.directionalKeys(['z', 'g', 'h', 'j']).label).to.equal('ZGHJ')
     })
 
     it("throws an error when the passed in arrow key template doesn't exist", () => {
-      expect(() => keyboard.directionalKeys('wsad').query()).to.throw(Error, 'Arrow key template "wsad" not found!')
+      expect(() => keyboard.directionalKeys('wsad').query()).to
+        .throw(Error, 'Directional key template "wsad" not found!')
     })
 
     it('accepts custom sets of arrow keys', () => {

@@ -2,10 +2,11 @@ import { IDocument } from '../apis'
 import { Control } from '../core/control'
 import { store } from '../index'
 import { Vector2 } from '../utils/math'
+import { findKeyValue, getKeyLabel } from '../values/keys'
 
-const arrowKeyTemplates: { [name: string]: [string, string, string, string] } = {
-  arrows: ['ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight'],
-  wasd: ['W', 'A', 'S', 'D'],
+const arrowKeyTemplates: { [name: string]: [string, string[]] } = {
+  arrows: ['Arrow keys', ['ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight']],
+  wasd: ['WASD', ['W', 'A', 'S', 'D']],
 }
 
 export class Keyboard {
@@ -56,20 +57,25 @@ export class Keyboard {
     }
   }
 
-  public directionalKeys(keys: [string, string, string, string] | string, label?: string): Control<Vector2> {
-    let name
+  public directionalKeys(keys: string[] | string, label?: string): Control<Vector2> {
+    let defaultLabel
     if (typeof keys === 'string') {
       keys = keys.toLowerCase()
       if (keys in arrowKeyTemplates) {
-        name = keys
-        keys = arrowKeyTemplates[keys]
+        const template = arrowKeyTemplates[keys.toLowerCase()]
+        defaultLabel = template[0]
+        keys = template[1]
       } else {
-        throw new Error(`Arrow key template "${keys}" not found!`)
+        throw new Error(`Directional key template "${keys}" not found!`)
       }
     } else {
-      name = keys.join('').toLowerCase()
+      if (keys.length === 4) {
+        keys = keys.map(key => findKeyValue(key))
+        defaultLabel = keys.map(key => getKeyLabel(key)).join('')
+      } else {
+        throw new Error('Directional key templates have to consist of four keys!')
+      }
     }
-    const defaultLabel = `[${name.toUpperCase()}]`
     return {
       label: label || defaultLabel,
       query: () => {

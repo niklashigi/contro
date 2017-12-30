@@ -10,7 +10,8 @@
     "object-literal-sort-keys": false,
     "max-classes-per-file": false,
     "no-empty-interface": false,
-    "interface-name": false
+    "interface-name": false,
+    "forin": false
   },
   "include": ["./dist/**/*.ts"]
 }
