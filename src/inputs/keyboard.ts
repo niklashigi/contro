@@ -42,7 +42,6 @@ export class Keyboard {
     key = key.toLowerCase()
     return {
       label: key.toUpperCase(),
-      icons: ['keyboard-key-' + key],
       query: () => {
         if (trigger) {
           if (this.queuedKeys.has(key)) {
@@ -73,7 +72,6 @@ export class Keyboard {
     const defaultLabel = `[${name.toUpperCase()}]`
     return {
       label: label || defaultLabel,
-      icons: ['keyboard-directional-keys-' + name],
       query: () => {
         const vector = new Vector2()
         if (this.key(keys[0]).query()) vector.y -= 1

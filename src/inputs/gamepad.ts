@@ -49,7 +49,6 @@ export class Gamepad {
   public button(button: number, trigger = false): Control<boolean> {
     return {
       label: `(${button})`,
-      icons: ['gamepad-button-' + button],
       fromGamepad: true,
       query: trigger ? () => {
         /* istanbul ignore else */

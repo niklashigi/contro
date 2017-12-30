@@ -74,12 +74,6 @@ describe('The `Mouse` class', () => {
       expect(mouse.button('right').label).to.equal('[RMB]')
     })
 
-    it('returns the correct icon for all three buttons', () => {
-      expect(mouse.button('left').icons[0]).to.equal('left-mouse-button')
-      expect(mouse.button('middle').icons[0]).to.equal('middle-mouse-button')
-      expect(mouse.button('right').icons[0]).to.equal('right-mouse-button')
-    })
-
     it('when queried returns `true` the mouse button is pressed', () => {
       canvas.listeners.mousedown({ button: 0 })
       expect(mouse.button('left').query()).to.equal(true)
@@ -116,10 +110,6 @@ describe('The `Mouse` class', () => {
       expect(mouse.pointer().label).to.equal('Cursor')
     })
 
-    it('returns the correct icon', () => {
-      expect(mouse.pointer().icons[0]).to.equal('mouse-pointer')
-    })
-
     describe('when queried', () => {
 
       it('returns a (0, 0) vector if no movement occurred', () => {
@@ -149,10 +139,6 @@ describe('The `Mouse` class', () => {
 
     it('returns the correct label', () => {
       expect(mouse.wheel().label).to.equal('Mouse wheel')
-    })
-
-    it('returns the correct icon', () => {
-      expect(mouse.wheel().icons[0]).to.equal('mouse-wheel')
     })
 
     describe('when queried', () => {

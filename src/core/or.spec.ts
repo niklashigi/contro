@@ -8,7 +8,6 @@ describe('the `or()` operator function', () => {
 
   const controlUndefined: Control<number> = {
     label: '',
-    icons: [],
     query: () => undefined,
   }
 
@@ -20,13 +19,11 @@ describe('the `or()` operator function', () => {
 
     const controlTrue: Control<boolean> = {
       label: '',
-      icons: [],
       query: () => true,
     }
 
     const controlFalse: Control<boolean> = {
       label: '',
-      icons: [],
       query: () => false,
     }
 
@@ -48,13 +45,11 @@ describe('the `or()` operator function', () => {
 
     const controlThree: Control<number> = {
       label: '',
-      icons: [],
       query: () => 3,
     }
 
     const controlFour: Control<number> = {
       label: '',
-      icons: [],
       query: () => 4,
     }
 
@@ -73,14 +68,12 @@ describe('the `or()` operator function', () => {
 
     const controlGamepad: Control<number> = {
       label: 'gamepad',
-      icons: ['gamepad'],
       query: null,
       fromGamepad: true,
     }
 
     const controlNonGamepad: Control<number> = {
       label: 'non-gamepad',
-      icons: ['non-gamepad'],
       query: null,
     }
 
@@ -90,10 +83,6 @@ describe('the `or()` operator function', () => {
 
       it('return the label of the first non-gamepad control', () => {
         expect(or(controlGamepad, controlNonGamepad).label).to.equal('non-gamepad')
-      })
-
-      it('return the icons of the first non-gamepad control', () => {
-        expect(or(controlGamepad, controlNonGamepad).icons[0]).to.equal('non-gamepad')
       })
 
     })
@@ -106,25 +95,16 @@ describe('the `or()` operator function', () => {
         expect(or(controlGamepad, controlNonGamepad).label).to.equal('gamepad')
       })
 
-      it('return the icons of the first gamepad control', () => {
-        expect(or(controlGamepad, controlNonGamepad).icons[0]).to.equal('gamepad')
-      })
-
     })
 
     describe('is `true` or `false` and no gamepad control is passed in', () => {
 
       const controlFirst: Control<number> = {
         label: 'first',
-        icons: ['first'],
         query: null,
       }
 
       it('return the label of the first control', () => {
-        expect(or(controlFirst, controlNonGamepad).label).to.equal('first')
-      })
-
-      it('return the icons of the first control', () => {
         expect(or(controlFirst, controlNonGamepad).label).to.equal('first')
       })
 

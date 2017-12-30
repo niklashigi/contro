@@ -7,13 +7,11 @@ describe('The `and()` operator function', () => {
 
   const controlA: Control<boolean> = {
     label: '[A]',
-    icons: ['a'],
     query: () => false,
   }
 
   const controlB: Control<boolean> = {
     label: '[B]',
-    icons: ['b'],
     query: () => true,
   }
 
@@ -21,10 +19,6 @@ describe('The `and()` operator function', () => {
 
   it('correctly combines labels', () => {
     expect(control.label).to.equal('[A] + [B]')
-  })
-
-  it('correctly combines icons', () => {
-    expect(control.icons).to.deep.equal(['a', 'plus', 'b'])
   })
 
   it('makes the combined query work as expected', () => {

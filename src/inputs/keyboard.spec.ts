@@ -36,10 +36,6 @@ describe('The `Keyboard` class', () => {
       expect(keyboard.key('G').label).to.equal('G')
     })
 
-    it('returns the correct icon', () => {
-      expect(keyboard.key('G').icons[0]).to.equal('keyboard-key-g')
-    })
-
     describe('when queried', () => {
 
       it('returns `true` when the key is pressed', () => {
@@ -86,12 +82,6 @@ describe('The `Keyboard` class', () => {
       expect(keyboard.directionalKeys('wasd').label).to.equal('[WASD]')
       expect(keyboard.directionalKeys('arrows').label).to.equal('[ARROWS]')
       expect(keyboard.directionalKeys(['z', 'g', 'h', 'j']).label).to.equal('[ZGHJ]')
-    })
-
-    it('returns the correct icon', () => {
-      expect(keyboard.directionalKeys('wasd').icons[0]).to.equal('keyboard-directional-keys-wasd')
-      expect(keyboard.directionalKeys('arrows').icons[0]).to.equal('keyboard-directional-keys-arrows')
-      expect(keyboard.directionalKeys(['z', 'g', 'h', 'j']).icons[0]).to.equal('keyboard-directional-keys-zghj')
     })
 
     it("throws an error when the passed in arrow key template doesn't exist", () => {

@@ -2,8 +2,6 @@ export interface Control<QueryType> {
 
   label: string
 
-  icons: string[]
-
   fromGamepad?: boolean
 
   query(): QueryType

@@ -5,7 +5,6 @@ export function and(...controls: Array<Control<boolean>>): Control<boolean> {
 
   return {
     label: controls.map(control => control.label).join(' + '),
-    icons: [].concat(...controls.map(control => control.icons)).join('?plus?').split('?'),
     query: () => {
       for (const control of controls) {
         /* istanbul ignore else */

@@ -68,7 +68,6 @@ export class Mouse {
     button = this.parseButton(button)
     return {
       label: ['[LMB]', '[MMB]', '[RMB]'][button],
-      icons: [['left-mouse-button', 'middle-mouse-button', 'right-mouse-button'][button]],
       query: () => {
         button = this.parseButton(button)
         if (trigger) {
@@ -87,7 +86,6 @@ export class Mouse {
   public pointer(): Control<Vector2> {
     return {
       label: 'Cursor',
-      icons: ['mouse-pointer'],
       query: () => {
         const movement = this.pointerMovement
         this.pointerMovement = new Vector2(0, 0)
@@ -99,7 +97,6 @@ export class Mouse {
   public wheel() {
     return {
       label: 'Mouse wheel',
-      icons: ['mouse-wheel'],
       query: () => {
         const distance = this.scrollDistance
         this.scrollDistance = 0
