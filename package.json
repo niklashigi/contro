@@ -19,6 +19,7 @@
     "test": "nyc mocha src/**/*.spec.ts --require ts-node/register --watch-extensions ts",
     "commit": "git-cz",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "generate-key-docs": "ts-node scripts/generate-key-docs.ts",
     "build": "rollup -c && uglifyjs dist/contro.js --comments /^!/ -cm -o dist/contro.min.js",
     "release": "semantic-release",
     "clean": "rimraf .nyc_output coverage dist"
@@ -41,12 +42,14 @@
   "homepage": "https://github.com/shroudedcode/contro#readme",
   "devDependencies": {
     "@types/chai": "^4.0.10",
+    "@types/fs-extra": "^5.0.0",
     "@types/mocha": "^2.2.44",
     "@types/node": "^8.5.2",
     "chai": "^4.1.2",
     "codecov": "^3.0.0",
     "commitizen": "^2.9.6",
     "cz-conventional-changelog": "^2.1.0",
+    "fs-extra": "^5.0.0",
     "husky": "^0.14.3",
     "mocha": "^4.0.1",
     "npm-run-all": "^4.1.2",
