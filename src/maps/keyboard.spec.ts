@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import * as Mocha from 'mocha'
-import { findKeyValue, getKeyLabel } from './keys'
+import { findKeyValue, getKeyLabel } from './keyboard'
 
 describe('The key value helper function', () => {
 

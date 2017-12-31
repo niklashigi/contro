@@ -1,8 +1,8 @@
 import { IDocument } from '../apis'
 import { Control } from '../core/control'
 import { store } from '../index'
+import { findKeyValue, getKeyLabel } from '../maps/keyboard'
 import { Vector2 } from '../utils/math'
-import { findKeyValue, getKeyLabel } from '../values/keys'
 
 const arrowKeyTemplates: { [name: string]: [string, string[]] } = {
   arrows: ['Arrow keys', ['ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight']],
