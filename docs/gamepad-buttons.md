@@ -24,4 +24,4 @@ Key value|Label|Aliases
 `15`|<kbd>Right</kbd>|`Right` , `DpadRight`
 `16`|<kbd>Home</kbd>|`Home` , `Guide` , `Xbox`
 
-*The table was [automatically generated](../scripts/generate-mapping-docs.ts).*
+*This table was [automatically generated](../scripts/generate-mapping-docs.ts).*

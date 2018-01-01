@@ -5,7 +5,7 @@
  */
 export const keyMap: { [value: string]: string[] } = {
   ' ': ['Space', 'Spacebar', 'Space Bar'],
-  'AltGraph': ['Alet Gr'],
+  'AltGraph': ['Alt Gr'],
   'ArrowDown': ['Down'],
   'ArrowLeft': ['Left'],
   'ArrowRight': ['Right'],

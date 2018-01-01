@@ -7,7 +7,7 @@ This is a table of all the supported keys that you can pass to `Keyboard.key()` 
 Key value|Label|Aliases
 ---|---|---
 ` `|<kbd>Space</kbd>|`Space` , `Spacebar` , `Space Bar`
-`AltGraph`|<kbd>Alet Gr</kbd>|`Alet Gr`
+`AltGraph`|<kbd>Alt Gr</kbd>|`Alt Gr`
 `ArrowDown`|<kbd>Down</kbd>|`Down`
 `ArrowLeft`|<kbd>Left</kbd>|`Left`
 `ArrowRight`|<kbd>Right</kbd>|`Right`
