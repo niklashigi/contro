@@ -1,6 +1,7 @@
 import { IGamepad, INavigator, IWindow  } from '../apis'
 import { Control  } from '../core/control'
 import { store } from '../index'
+import { findButtonNumber, getButtonLabel } from '../maps/gamepad'
 
 export class Gamepad {
 
@@ -46,25 +47,26 @@ export class Gamepad {
     return gamepad
   }
 
-  public button(button: number, trigger = false): Control<boolean> {
+  public button(button: number | string, trigger = false): Control<boolean> {
+    const buttonNumber = findButtonNumber(button)
     return {
-      label: `(${button})`,
+      label: getButtonLabel(buttonNumber),
       fromGamepad: true,
       query: trigger ? () => {
         /* istanbul ignore else */
         if (this.isConnected()) {
-          if (this.gamepad.buttons[button].pressed) {
-            if (!this.pressedButtons.has(button)) {
-              this.pressedButtons.add(button)
+          if (this.gamepad.buttons[buttonNumber].pressed) {
+            if (!this.pressedButtons.has(buttonNumber)) {
+              this.pressedButtons.add(buttonNumber)
               return true
             }
           } else {
-            this.pressedButtons.delete(button)
+            this.pressedButtons.delete(buttonNumber)
           }
         }
         return false
       } : () => {
-        return this.isConnected() && this.gamepad.buttons[button].pressed
+        return this.isConnected() && this.gamepad.buttons[buttonNumber].pressed
       },
     }
   }
