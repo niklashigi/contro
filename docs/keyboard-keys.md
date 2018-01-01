@@ -1,13 +1,13 @@
 # Supported keys
 
-This is an [automatically generated][generator-script] table of all the supported keys that you can pass to `Keyboard.key()` and `Keyboard.directionalKeys()`.
+This is a table of all the supported keys that you can pass to `Keyboard.key()` and `Keyboard.directionalKeys()`.
 
 <!--lint disable table-cell-padding table-pipes table-pipe-alignment-->
 
 Key value|Label|Aliases
 ---|---|---
 ` `|<kbd>Space</kbd>|`Space` , `Spacebar` , `Space Bar`
-`AltGraph`|<kbd>Alt Gr</kbd>|`Alt Gr`
+`AltGraph`|<kbd>Alet Gr</kbd>|`Alet Gr`
 `ArrowDown`|<kbd>Down</kbd>|`Down`
 `ArrowLeft`|<kbd>Left</kbd>|`Left`
 `ArrowRight`|<kbd>Right</kbd>|`Right`
@@ -22,4 +22,4 @@ Key value|Label|Aliases
 `PageUp`|<kbd>Page Up</kbd>|`Page Up` , `PgUp`
 `Tab`|<kbd>Tab</kbd>|`Tab`
 
-[generator-script]: ../scripts/generate-key-docs.ts
+*This table was [automatically generated](../scripts/generate-mapping-docs.ts).*

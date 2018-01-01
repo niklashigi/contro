@@ -19,7 +19,7 @@
     "test": "nyc mocha src/**/*.spec.ts --require ts-node/register --watch-extensions ts",
     "commit": "git-cz",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "generate-key-docs": "ts-node scripts/generate-key-docs.ts",
+    "generate-mapping-docs": "ts-node scripts/generate-mapping-docs.ts",
     "build": "rollup -c && uglifyjs dist/contro.js --comments /^!/ -cm -o dist/contro.min.js",
     "release": "semantic-release",
     "clean": "rimraf .nyc_output coverage dist"
