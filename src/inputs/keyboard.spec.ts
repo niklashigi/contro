@@ -39,13 +39,13 @@ describe('The `Keyboard` class', () => {
     describe('when queried', () => {
 
       it('returns `true` when the key is pressed', () => {
-        doc.keyDown('G')
-        expect(keyboard.key('G').query()).to.equal(true)
+        doc.keyDown('g')
+        expect(keyboard.key('g').query()).to.equal(true)
       })
 
       it('returns `false` when the key is not pressed', () => {
-        doc.keyUp('G')
-        expect(keyboard.key('G').query()).to.equal(false)
+        doc.keyUp('g')
+        expect(keyboard.key('g').query()).to.equal(false)
       })
 
       it('sets `store.preferGamepad` to `false`', () => {

@@ -24,7 +24,8 @@ export class Keyboard {
 
     this.document.addEventListener('keydown', (event: any) => {
       store.preferGamepad = false
-      const key = event.key.toLowerCase()
+      let key = event.key
+      if (key === key.toUpperCase()) key = key.toLowerCase()
       this.pressedKeys.add(key)
       this.queuedKeys.add(key)
       return false
@@ -32,7 +33,8 @@ export class Keyboard {
 
     this.document.addEventListener('keyup', (event: any) => {
       store.preferGamepad = false
-      const key = event.key.toLowerCase()
+      let key = event.key
+      if (key === key.toUpperCase()) key = key.toLowerCase()
       this.pressedKeys.delete(key)
       this.queuedKeys.delete(key)
       return false
@@ -40,9 +42,9 @@ export class Keyboard {
   }
 
   public key(key: string, trigger = false): Control<boolean> {
-    key = key.toLowerCase()
+    key = findKeyValue(key)
     return {
-      label: key.toUpperCase(),
+      label: getKeyLabel(key),
       query: () => {
         if (trigger) {
           if (this.queuedKeys.has(key)) {

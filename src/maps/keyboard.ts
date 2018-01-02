@@ -22,14 +22,14 @@ export const keyMap: { [value: string]: string[] } = {
 }
 
 export function findKeyValue(keyString: string): string {
-  if (keyString.length === 1) return keyString
-  for (const keyValue in keyMap) {
-    for (const key of keyMap[keyValue]) {
+  if (keyString.length === 1) return keyString.toLowerCase()
+  Object.keys(keyMap).forEach(keyValue => {
+    keyMap[keyValue].forEach(key => {
       if (keyString.toLowerCase() === key.toLowerCase()) {
-        return keyValue
+        keyString = keyValue
       }
-    }
-  }
+    })
+  })
   return keyString
 }
 
