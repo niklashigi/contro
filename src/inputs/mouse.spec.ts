@@ -84,20 +84,20 @@ describe('The `Mouse` class', () => {
       expect(mouse.button('left').query()).to.equal(false)
     })
 
-    describe('when initialized with `trigger = true` and queried', () => {
+    describe('when queried in `trigger` mode', () => {
 
       it('returns `false` when the button is not pressed', () => {
         canvas.listeners.mouseup({ button: 0 })
-        expect(mouse.button('left', true).query()).to.equal(false)
+        expect(mouse.button('left').trigger.query()).to.equal(false)
       })
 
       it('returns `true` once after the button was pressed', () => {
         canvas.listeners.mousedown({ button: 0 })
-        expect(mouse.button('left', true).query()).to.equal(true)
+        expect(mouse.button('left').trigger.query()).to.equal(true)
       })
 
       it('returns `false` after button state was queried', () => {
-        expect(mouse.button('left', true).query()).to.equal(false)
+        expect(mouse.button('left').trigger.query()).to.equal(false)
       })
 
     })

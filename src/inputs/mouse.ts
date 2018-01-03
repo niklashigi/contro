@@ -1,5 +1,5 @@
 import { ICanvas, IDocument } from '../apis'
-import { Control } from '../core/control'
+import { Control, TriggerControl } from '../core/control'
 import { store } from '../index'
 import { Vector2 } from '../utils/math'
 
@@ -64,21 +64,26 @@ export class Mouse {
     }
   }
 
-  public button(button: string | number, trigger = false): Control<boolean> {
+  public button(button: string | number): TriggerControl<boolean> {
+    const that = this
     button = this.parseButton(button)
     return {
       label: ['[LMB]', '[MMB]', '[RMB]'][button],
-      query: () => {
-        button = this.parseButton(button)
-        if (trigger) {
-          if (this.queuedButtons.has(button)) {
-            this.queuedButtons.delete(button)
+      query() {
+        button = that.parseButton(button)
+        if (!this.trigger) {
+          if (that.queuedButtons.has(button)) {
+            that.queuedButtons.delete(button)
             return true
           }
           return false
         } else {
-          return this.pressedButtons.has(button)
+          return that.pressedButtons.has(button)
         }
+      },
+      get trigger() {
+        delete this.trigger
+        return this
       },
     }
   }

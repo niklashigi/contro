@@ -1,5 +1,5 @@
 import { IGamepad, INavigator, IWindow  } from '../apis'
-import { Control  } from '../core/control'
+import { Control, TriggerControl  } from '../core/control'
 import { store } from '../index'
 import { findButtonNumber, getButtonLabel } from '../maps/gamepad'
 import { Vector2 } from '../utils/math'
@@ -55,31 +55,38 @@ export class Gamepad {
 
   private get gamepad(): IGamepad {
     const gamepad = this.navigator.getGamepads()[this.gamepadIndex]
+    /* istanbul ignore next */
     if (gamepad.timestamp > this.gamepadTimestamp) store.preferGamepad = true
     this.gamepadTimestamp = gamepad.timestamp
     return gamepad
   }
 
-  public button(button: number | string, trigger = false): Control<boolean> {
+  public button(button: number | string): TriggerControl<boolean> {
+    const that = this
     const buttonNumber = findButtonNumber(button)
     return {
       label: getButtonLabel(buttonNumber),
       fromGamepad: true,
-      query: trigger ? () => {
-        /* istanbul ignore else */
-        if (this.isConnected()) {
-          if (this.gamepad.buttons[buttonNumber].pressed) {
-            if (!this.pressedButtons.has(buttonNumber)) {
-              this.pressedButtons.add(buttonNumber)
+      query() {
+        if (!that.isConnected()) return false
+        if (!this.trigger) {
+          /* istanbul ignore else */
+          if (that.gamepad.buttons[buttonNumber].pressed) {
+            if (!that.pressedButtons.has(buttonNumber)) {
+              that.pressedButtons.add(buttonNumber)
               return true
             }
           } else {
-            this.pressedButtons.delete(buttonNumber)
+            that.pressedButtons.delete(buttonNumber)
           }
+          return false
+        } else {
+          return that.gamepad.buttons[buttonNumber].pressed
         }
-        return false
-      } : () => {
-        return this.isConnected() && this.gamepad.buttons[buttonNumber].pressed
+      },
+      get trigger() {
+        delete this.trigger
+        return this
       },
     }
   }

@@ -54,20 +54,20 @@ describe('The `Keyboard` class', () => {
 
     })
 
-    describe('when initialized with `trigger = true` and queried', () => {
+    describe('when queried in `trigger` mode', () => {
 
       it('returns `false` when the key is not pressed', () => {
         doc.keyUp('Z')
-        expect(keyboard.key('Z', true).query()).to.equal(false)
+        expect(keyboard.key('Z').trigger.query()).to.equal(false)
       })
 
       it('returns `true` once after the button was pressed', () => {
         doc.keyDown('Z')
-        expect(keyboard.key('Z', true).query()).to.equal(true)
+        expect(keyboard.key('Z').trigger.query()).to.equal(true)
       })
 
       it('returns `false` after button state was queried', () => {
-        expect(keyboard.key('Z', true).query()).to.equal(false)
+        expect(keyboard.key('Z').trigger.query()).to.equal(false)
       })
 
       doc.keyUp('Z')

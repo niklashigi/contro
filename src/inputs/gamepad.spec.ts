@@ -100,8 +100,8 @@ describe('The `Gamepad` class', () => {
         expect(gamepad.button(0).query()).to.equal(false)
       })
 
-      it('when initialized with `trigger = true` and queried returns `false`', () => {
-        expect(gamepad.button(0, true).query()).to.equal(false)
+      it('when queried in `trigger` moder returns `false`', () => {
+        expect(gamepad.button(0).trigger.query()).to.equal(false)
       })
 
     })
@@ -143,20 +143,20 @@ describe('The `Gamepad` class', () => {
         expect(gamepad.button(0).query()).to.equal(true)
       })
 
-      describe('when initialized with `trigger = true`', () => {
+      describe('when queried in `trigger` mode', () => {
 
         it('returns `false` when the key is not pressed', () => {
           nav.gamepads[0].buttons[0].pressed = false
-          expect(gamepad.button(0, true).query()).to.equal(false)
+          expect(gamepad.button(0).trigger.query()).to.equal(false)
         })
 
         it('returns `true` once after the key was pressed', () => {
           nav.gamepads[0].buttons[0].pressed = true
-          expect(gamepad.button(0, true).query()).to.equal(true)
+          expect(gamepad.button(0).trigger.query()).to.equal(true)
         })
 
         it('returns `false` after the key state was queried', () => {
-          expect(gamepad.button(0, true).query()).to.equal(false)
+          expect(gamepad.button(0).trigger.query()).to.equal(false)
         })
 
       })

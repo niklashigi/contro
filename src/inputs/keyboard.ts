@@ -1,5 +1,5 @@
 import { IDocument } from '../apis'
-import { Control } from '../core/control'
+import { Control, TriggerControl } from '../core/control'
 import { store } from '../index'
 import { findKeyValue, getKeyLabel } from '../maps/keyboard'
 import { Vector2 } from '../utils/math'
@@ -41,20 +41,17 @@ export class Keyboard {
     })
   }
 
-  public key(key: string, trigger = false): Control<boolean> {
+  public key(key: string): TriggerControl<boolean> {
+    const that = this
     key = findKeyValue(key)
     return {
       label: getKeyLabel(key),
-      query: () => {
-        if (trigger) {
-          if (this.queuedKeys.has(key)) {
-            this.queuedKeys.delete(key)
-            return true
-          }
-          return false
-        } else {
-          return this.pressedKeys.has(key)
-        }
+      query() {
+        return this.trigger ? that.pressedKeys.has(key) : that.queuedKeys.delete(key)
+      },
+      get trigger() {
+        delete this.trigger
+        return this
       },
     }
   }
