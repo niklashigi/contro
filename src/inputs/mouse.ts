@@ -68,7 +68,7 @@ export class Mouse {
     const that = this
     button = this.parseButton(button)
     return {
-      label: ['[LMB]', '[MMB]', '[RMB]'][button],
+      label: ['Left', 'Middle', 'Right'][button] + ' Mouse Button',
       query() {
         button = that.parseButton(button)
         if (!this.trigger) {

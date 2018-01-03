@@ -69,9 +69,9 @@ describe('The `Mouse` class', () => {
   describe('should have an `button()` method that returns a component that', () => {
 
     it('returns the correct label for all three buttons', () => {
-      expect(mouse.button('left').label).to.equal('[LMB]')
-      expect(mouse.button('middle').label).to.equal('[MMB]')
-      expect(mouse.button('right').label).to.equal('[RMB]')
+      expect(mouse.button('left').label).to.equal('Left Mouse Button')
+      expect(mouse.button('middle').label).to.equal('Middle Mouse Button')
+      expect(mouse.button('right').label).to.equal('Right Mouse Button')
     })
 
     it('when queried returns `true` the mouse button is pressed', () => {
