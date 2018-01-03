@@ -2,6 +2,19 @@ import { IGamepad, INavigator, IWindow  } from '../apis'
 import { Control  } from '../core/control'
 import { store } from '../index'
 import { findButtonNumber, getButtonLabel } from '../maps/gamepad'
+import { Vector2 } from '../utils/math'
+
+export interface GamepadStick {
+
+  xAxis: number
+  yAxis: number
+
+}
+
+const gamepadSticks: { [id: string]: GamepadStick } = {
+  left: { xAxis: 0, yAxis: 1 },
+  right: { xAxis: 2, yAxis: 3 },
+}
 
 export class Gamepad {
 
@@ -69,6 +82,17 @@ export class Gamepad {
         return this.isConnected() && this.gamepad.buttons[buttonNumber].pressed
       },
     }
+  }
+
+  public stick(stick: string | GamepadStick): Vector2 {
+    if (typeof stick === 'string') {
+      if (stick in gamepadSticks) {
+        stick = gamepadSticks[stick]
+      } else {
+        throw new Error(`Gamepad stick "${stick}" not found!`)
+      }
+    }
+    return new Vector2(this.gamepad.axes[stick.xAxis], this.gamepad.axes[stick.yAxis])
   }
 
 }
