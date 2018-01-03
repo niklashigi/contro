@@ -6,6 +6,7 @@
     ["remark-lint-maximum-line-length", false],
     ["remark-lint-heading-increment", false],
     ["remark-lint-unordered-list-marker-style", "*"],
-    ["remark-lint-no-duplicate-headings", false]
+    ["remark-lint-no-duplicate-headings", false],
+    ["remark-lint-list-item-spacing", false]
   ]
 }
