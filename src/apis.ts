@@ -26,4 +26,5 @@ export interface IGamepad {
   buttons: IGamepadButton[]
   axes: number[]
   connected: boolean
+  timestamp: number
 }

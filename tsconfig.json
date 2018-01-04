@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es6",
+    "target": "ES2016",
     "noImplicitAny": true,
     "declaration": true,
     "outDir": "./disto/"
   },
-  "lib": ["dom", "es5", "es6", "es7"],
+  "lib": ["DOM", "ES2015", "ES2016", "ES2016.Array.Include"],
   "exclude": [
     "node_modules",
     "src/**/*.spec.ts"

@@ -12,85 +12,80 @@
 [![build status][build-badge]][build-link]
 [![coverage][coverage-badge]][coverage-link]
 [![npm version][npm-version-badge]][npm-link]
-[![monhtly downloads][npm-downloads-badge]][npm-link]
-
-## Introducation
+[![monthly downloads][npm-downloads-badge]][npm-link]
 
 ### What is Contro?
 
-Contro is a **library** that offers **simple abstractions** on top of existing **Web input APIs** and allows game developers to easily implements controls for **keyboard**, **mouse** and **gamepad**.
+Contro is a **library** that offers **simple abstractions** on top of existing **Web input APIs** and allows game developers to easily implement controls for **keyboard**, **mouse** and **gamepad**.
 
-### Getting started
+## Installation
 
-The easiest way to include Contro in your application is using a CDN:
+The easiest way to include Contro in your application is using the `unpkg` CDN:
 
 ```html
-<script src="https://unpkg.com/contro"></script>
+<script src="https://unpkg.com/contro@2"></script>
 ```
 
-If you're using `npm`, you can also `npm install contro`.
+If you're using `npm`, you can also install it using `npm i contro`.
 
-### Creating your first control
+## Usage
 
-Imagine your game looked something like this ...
+1. Import the Contro classes and functions using [Object destructuring][object-destructuring].
 
 ```js
-/** Gameloop */
-const canvas = document.querySelector('#game')
-const renderer = new MyGameLibrary.Renderer(canvas)
-const catWorld = new CatWorld()
-
-function loop() {
-  renderer.render(catWorld)
-  requestAnimationFrame(loop)
-}
-
-loop()
+const { Mouse, Keyboard, Gamepad, or, and } = Contro
+// OR
+import { Mouse, Keyboard, Gamepad, or, and } from 'contro'
 ```
 
-... and you wanted to spawn a new cat whenever the user clicked.
-
-To accomplish this we need Contro's `Mouse` class. It's an abstraction on top of JavaScript's [`MouseEvent`'s](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) and the [Pointer Lock API](https://developer.mozilla.org/en-US/docs/Web/API/Pointer_Lock_API) optimized for being used within [game loop](https://en.wikipedia.org/wiki/Game_programming#Game_structure) functions.
-
-Let's create a new `Mouse` instance and pass in our `canvas`, so Contro can register the required event listeners for us.
+2. Create instances of the components you want to use.
 
 ```js
-const mouse = new Contro.Mouse({ canvas })
+const keyboard = new Keyboard()
+const gamepad = new Gamepad()
 ```
 
-Now we can use our new `Mouse` instance to check whether the left mouse button is pressed.
+3. Prepare the controls using the control methods and the operator functions `and` and `or`.
 
 ```js
-if (mouse.isPressed(Contro.MouseButton.Left)) {
-  catWorld.spawnCat()
+const controls = {
+  jump: or(gamepad.button('A').trigger, keyboard.key('Space').trigger),
+  menu: or(gamepad.button('Back').trigger, keyboard.key('Esc').trigger),
+  inventory: or(gamepad.button('LB').trigger, keyboard.key('E').trigger),
+  map: or(gamepad.button('RB').trigger, keyboard.key('M').trigger),
+  statusOverlay: or(gamepad.button('RB'), keyboard.key('Tab')),
 }
 ```
 
-If this was real code and you ran it game you'd notice something weird: Whenever you held down your left mouse button cats would keep spawning and spawning until you released the button again.
-
-This is because `Mouse.isPressed()` always returns the current state of the mouse button and that for every single frame (iteration of your game loop). We only want one cat to spawn when we click, so we have to use `Mouse.wasPressed()`.
-
-Our final code looks like this:
+4. In your game loop, display the relevant `.label`'s and '`.query()` the controls.
 
 ```js
-/** Gameloop */
-const canvas = document.querySelector('#game')
-const renderer = new MyGameLibrary.Renderer(canvas)
-const catWorld = new CatWorld()
-const mouse = new Contro.Mouse()
+function gameLoop() {
+  // Update the UI to reflect the player's input device(s)
+  game.jumpButton.text = controls.jump.label
+  game.menuButton.text = controls.menu.label
+  // ...
 
-function loop() {
-  if (mouse.wasPressed(Contro.MouseButton.Left)) {
-    catWorld.spawnCat()
-  }
-  renderer.render(catWorld)
-  requestAnimationFrame(loop)
+  // Query the controls and do something
+  if (controls.jump.query()) game.player.jump()
+  if (controls.menu.query()) game.openMenu()
+  game.statusOverlay.visible = controls.statusOverlay.query()
+  // ...
+
+  requestAnimationFrame(gameLoop)
 }
-
-loop()
 ```
 
-> Learn more on the [API Documentation](/docs/API.md).
+Note that all of the code starting with `game.` is fictional and just serves as an example.
+
+---
+
+#### Not convinced yet? Check out [this demo][demo]!
+> Wanna learn more? Check out [the docs][docs]!
+
+[demo]: https://codepen.io/shroudedcode/pen/qpPqmB
+[docs]: /docs/README.md
+[object-destructuring]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring
 
 [build-link]: https://travis-ci.org/shroudedcode/contro
 [build-badge]: https://img.shields.io/travis/shroudedcode/contro.svg?style=flat-square
