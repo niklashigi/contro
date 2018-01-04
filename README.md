@@ -16,7 +16,7 @@
 
 ### What is Contro?
 
-Contro is a **library** that offers **simple abstractions** on top of existing **Web input APIs** and allows game developers to easily implements controls for **keyboard**, **mouse** and **gamepad**.
+Contro is a **library** that offers **simple abstractions** on top of existing **Web input APIs** and allows game developers to easily implement controls for **keyboard**, **mouse** and **gamepad**.
 
 ## Installation
 
@@ -78,8 +78,12 @@ function gameLoop() {
 
 Note that all of the code starting with `game.` is fictional and just serves as an example.
 
+---
+
+#### Not convinced yet? Check out [this demo][demo]!
 > Wanna learn more? Check out [the docs][docs]!
 
+[demo]: https://codepen.io/shroudedcode/pen/qpPqmB
 [docs]: /docs/README.md
 [object-destructuring]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring
 
