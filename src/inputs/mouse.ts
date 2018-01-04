@@ -71,7 +71,7 @@ export class Mouse {
       label: ['Left', 'Middle', 'Right'][button] + ' Mouse Button',
       query() {
         button = that.parseButton(button)
-        if (!this.trigger) {
+        if (!this.hasOwnProperty('trigger')) {
           if (that.queuedButtons.has(button)) {
             that.queuedButtons.delete(button)
             return true

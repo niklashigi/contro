@@ -69,7 +69,7 @@ export class Gamepad {
       fromGamepad: true,
       query() {
         if (!that.isConnected()) return false
-        if (!this.trigger) {
+        if (!this.hasOwnProperty('trigger')) {
           /* istanbul ignore else */
           if (that.gamepad.buttons[buttonNumber].pressed) {
             if (!that.pressedButtons.has(buttonNumber)) {

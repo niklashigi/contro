@@ -47,7 +47,7 @@ export class Keyboard {
     return {
       label: getKeyLabel(key),
       query() {
-        return this.trigger ? that.pressedKeys.has(key) : that.queuedKeys.delete(key)
+        return this.hasOwnProperty('trigger') ? that.pressedKeys.has(key) : that.queuedKeys.delete(key)
       },
       get trigger() {
         delete this.trigger
