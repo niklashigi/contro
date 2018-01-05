@@ -35,8 +35,10 @@ export class Gamepad {
     this.window.addEventListener('gamepadconnected', ({ gamepad }) => {
       /* istanbul ignore else */
       if (!this.isConnected()) {
-        this.gamepadIndex = gamepad.index
-        store.preferGamepad = true
+        if (gamepad.mapping === 'standard') {
+          this.gamepadIndex = gamepad.index
+          store.preferGamepad = true
+        }
       }
     })
 

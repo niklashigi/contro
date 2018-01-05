@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import * as Mocha from 'mocha'
-import { IGamepad, INavigator, IWindow  } from '../apis'
+import { IGamepad, IGamepadButton, INavigator, IWindow  } from '../apis'
 import { store } from '../index'
 import { Vector2 } from '../utils/math'
 import { MockEventTarget } from '../utils/mock'
@@ -15,6 +15,17 @@ class MockNavigator extends MockEventTarget implements INavigator {
   public getGamepads() {
     return this.gamepads
   }
+
+}
+
+class MockGamepad implements IGamepad {
+
+  public index: number = 0
+  public buttons: IGamepadButton[] = []
+  public axes: number[] = []
+  public connected: boolean = true
+  public timestamp: number = 0
+  public mapping: string = 'standard'
 
 }
 
@@ -44,19 +55,8 @@ describe('The `Gamepad` class', () => {
     })
 
     it('returns `true` after a gamepad was connected', () => {
-      nav.gamepads[0] = {
-        index: 0,
-        buttons: [
-          {
-            pressed: false,
-          },
-        ],
-        axes: [],
-        connected: true,
-        timestamp: 0,
-      }
-
-      win.listeners.gamepadconnected({ gamepad: { index: 0 } })
+      nav.gamepads[0] = new MockGamepad()
+      win.listeners.gamepadconnected({ gamepad: nav.gamepads[0] })
       expect(gamepad.isConnected()).to.equal(true)
     })
 
@@ -66,16 +66,16 @@ describe('The `Gamepad` class', () => {
       expect(gamepad.isConnected()).to.equal(false)
     })
 
-    it('returns `true` again after a gamepad was connected', () => {
-      nav.gamepads[0] = {
-        index: 0,
-        buttons: [],
-        axes: [],
-        connected: true,
-        timestamp: 0,
-      }
+    it('returns `false` after a non-standard gamepad was connected', () => {
+      nav.gamepads[0] = new MockGamepad()
+      nav.gamepads[0].mapping = 'non-standard'
+      win.listeners.gamepadconnected({ gamepad: nav.gamepads[0] })
+      expect(gamepad.isConnected()).to.equal(false)
+    })
 
-      win.listeners.gamepadconnected({ gamepad: { index: 0 } })
+    it('returns `true` again after a gamepad was connected', () => {
+      nav.gamepads[0] = new MockGamepad()
+      win.listeners.gamepadconnected({ gamepad: nav.gamepads[0] })
       expect(gamepad.isConnected()).to.equal(true)
     })
 
@@ -123,9 +123,9 @@ describe('The `Gamepad` class', () => {
         axes: [0, 0, 0, 0],
         connected: true,
         timestamp: 0,
+        mapping: 'standard',
       }
-
-      win.listeners.gamepadconnected({ gamepad: { index: 0 } })
+      win.listeners.gamepadconnected({ gamepad: nav.gamepads[0] })
     })
 
     it('should set `store.preferGamepad` to `true`', () => {

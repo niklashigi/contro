@@ -27,4 +27,5 @@ export interface IGamepad {
   axes: number[]
   connected: boolean
   timestamp: number
+  mapping: string
 }
