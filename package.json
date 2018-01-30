@@ -2,8 +2,9 @@
   "name": "contro",
   "version": "0.0.0-semantically-released",
   "description": "Game controls done right.",
-  "main": "dist/contro.esm.js",
-  "unpkg": "dist/contro.js",
+  "main": "dist/contro.js",
+  "jsnext:main": "dist/contro.esm.js",
+  "module": "dist/contro.esm.js",
   "files": [
     "dist/contro.esm.js",
     "dist/contro.js",
