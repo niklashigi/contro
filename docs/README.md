@@ -51,7 +51,7 @@ console.log(compoundControl.query()) // `true` when at least one is pressed
 
 [logical-or]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_Operators#Logical_OR
 [logical-and]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_Operators#Logical_AND
-[keyboard-component]: /components/keyboard.md
-[mouse-component]: /components/mouse.md
-[gamepad-component]: /components/gamepad.md
+[keyboard-component]: ./components/keyboard.md
+[mouse-component]: ./components/mouse.md
+[gamepad-component]: ./components/gamepad.md
 [issues]: https://github.com/shroudedcode/contro/issues
