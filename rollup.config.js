@@ -1,16 +1,18 @@
 import typescript from 'rollup-plugin-typescript'
 
 const removeComments = () => ({
-  transform(source, id) {
+  transform(source) {
     return source.replace(/\/\*[^*]+\*\/\s+/g, '')
   }
 })
+
+const year = new Date().getFullYear()
 
 const addBanner = () => ({
   transformBundle(source) {
     return `/*!
  * Contro
- * (c) 2017 Niklas Higi
+ * (c) ${year} Niklas Higi
  * Released under the MIT License.
  */
 ` + source
