@@ -6,14 +6,15 @@ import { Vector2 } from '../utils/math'
 
 export interface GamepadStick {
 
+  label: string
   xAxis: number
   yAxis: number
 
 }
 
 const gamepadSticks: { [id: string]: GamepadStick } = {
-  left: { xAxis: 0, yAxis: 1 },
-  right: { xAxis: 2, yAxis: 3 },
+  left: { label: 'Left stick', xAxis: 0, yAxis: 1 },
+  right: { label: 'Right stick', xAxis: 2, yAxis: 3 },
 }
 
 export class Gamepad {
@@ -93,15 +94,25 @@ export class Gamepad {
     }
   }
 
-  public stick(stick: string | GamepadStick): Vector2 {
+  public stick(stick: string | GamepadStick): Control<Vector2> {
+    let gpStick: GamepadStick
     if (typeof stick === 'string') {
       if (stick in gamepadSticks) {
-        stick = gamepadSticks[stick]
+        gpStick = gamepadSticks[stick]
       } else {
         throw new Error(`Gamepad stick "${stick}" not found!`)
       }
+    } else {
+      gpStick = stick
     }
-    return new Vector2(this.gamepad.axes[stick.xAxis], this.gamepad.axes[stick.yAxis])
+
+    const {gamepad} = this
+    return {
+      label: gpStick.label,
+      query() {
+        return new Vector2(gamepad.axes[gpStick.xAxis], gamepad.axes[gpStick.yAxis])
+      },
+    }
   }
 
 }
