@@ -26,7 +26,7 @@ When `.query()`-ed returns whether the button is currently pressed.
 When `.query()`-ed returns a `Vector2` of the current position of the stick.
 
 * `stick` is the name of the (`left`, `right`) or an object
-  * the custom object looks like this: `{ xAxis: 0, yAxis: 1 }`
+  * the custom object looks like this: `{ label: 'Example stick', xAxis: 0, yAxis: 1 }`
 
 ---
 
