@@ -170,19 +170,19 @@ describe('The `Gamepad` class', () => {
       })
 
       it('returns a (0, 0) vector when initially queried', () => {
-        expect(gamepad.stick('left').query()).to.deep.equal(new Vector2())
+        expect(gamepad.stick('left')).to.deep.equal(new Vector2())
       })
 
       it('returns the correct vector when queried after change', () => {
         nav.gamepads[0].axes[0] = .56
         nav.gamepads[0].axes[1] = .31
-        expect(gamepad.stick('left').query()).to.deep.equal(new Vector2(.56, .31))
+        expect(gamepad.stick('left')).to.deep.equal(new Vector2(.56, .31))
       })
 
       it('also works with custom axis numbers', () => {
         nav.gamepads[0].axes[2] = .42
         nav.gamepads[0].axes[3] = .69
-        expect(gamepad.stick({ label: '', xAxis: 2, yAxis: 3 }).query()).to.deep.equal(new Vector2(.42, .69))
+        expect(gamepad.stick({ xAxis: 2, yAxis: 3 })).to.deep.equal(new Vector2(.42, .69))
       })
 
     })
