@@ -28,7 +28,7 @@ export class Gamepad {
 
   constructor(
     /* istanbul ignore next */
-    { win = window, nav = navigator }: { win?: IWindow, nav?: INavigator } = {},
+    { win = window, nav = navigator as any }: { win?: IWindow, nav?: INavigator } = {},
   ) {
     this.window = win
     this.navigator = nav
