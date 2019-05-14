@@ -1,4 +1,4 @@
-import typescript from 'rollup-plugin-typescript'
+import typescript from 'rollup-plugin-typescript2'
 
 const removeComments = () => ({
   transform(source) {
@@ -9,7 +9,7 @@ const removeComments = () => ({
 const year = new Date().getFullYear()
 
 const addBanner = () => ({
-  transformBundle(source) {
+  renderChunk(source) {
     return `/*!
  * Contro
  * (c) ${year} Niklas Higi
@@ -23,7 +23,9 @@ export default {
   input: 'src/index.ts',
   plugins: [
     typescript({
-      typescript: require('typescript'),
+      tsconfigOverride: {
+        compilerOptions: { module: 'es2015' },
+      },
     }),
     removeComments(),
     addBanner(),

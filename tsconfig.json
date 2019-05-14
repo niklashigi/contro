@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "ES2016",
+    "target": "es2016",
     "noImplicitAny": true,
-    "declaration": true,
-    "outDir": "./disto/"
+    "declaration": true
   },
-  "lib": ["DOM", "ES2015", "ES2016", "ES2016.Array.Include"],
+  "lib": ["dom"],
+  "includes": ["src/**/*.ts"],
   "exclude": [
     "node_modules",
+    "scripts/**",
     "src/**/*.spec.ts"
   ]
 }

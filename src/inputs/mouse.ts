@@ -1,6 +1,6 @@
 import { ICanvas, IDocument } from '../apis'
 import { Control, TriggerControl } from '../core/control'
-import { store } from '../index'
+import store from '../store'
 import { Vector2 } from '../utils/math'
 
 const mouseButtons = ['left', 'middle', 'right']

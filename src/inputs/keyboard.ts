@@ -1,7 +1,7 @@
 import { IDocument } from '../apis'
 import { Control, TriggerControl } from '../core/control'
-import { store } from '../index'
 import { findKeyValue, getKeyLabel } from '../maps/keyboard'
+import store from '../store'
 import { Vector2 } from '../utils/math'
 
 const arrowKeyTemplates: { [name: string]: [string, string[]] } = {

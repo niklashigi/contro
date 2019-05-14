@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import * as Mocha from 'mocha'
-import { store } from '../index'
+import store from '../store'
 import { Control } from './control'
 import { or } from './or'
 

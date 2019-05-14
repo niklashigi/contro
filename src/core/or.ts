@@ -1,5 +1,4 @@
-import { store } from '../index'
-import { Vector2 } from '../utils/math'
+import store from '../store'
 import { Control } from './control'
 
 export function or(...controls: Array<Control<any>>): Control<any> {

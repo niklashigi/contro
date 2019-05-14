@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import * as Mocha from 'mocha'
 import { IGamepad, IGamepadButton, INavigator, IWindow  } from '../apis'
-import { store } from '../index'
+import store from '../store'
 import { Vector2 } from '../utils/math'
 import { MockEventTarget } from '../utils/mock'
 import { Gamepad } from './gamepad'

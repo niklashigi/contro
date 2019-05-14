@@ -1,7 +1,7 @@
 import { IGamepad, INavigator, IWindow  } from '../apis'
 import { Control, TriggerControl  } from '../core/control'
-import { store } from '../index'
 import { findButtonNumber, getButtonLabel } from '../maps/gamepad'
+import store from '../store'
 import { Vector2 } from '../utils/math'
 
 export interface GamepadStick {
