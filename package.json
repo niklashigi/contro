@@ -11,7 +11,6 @@
     "dist/contro.min.js"
   ],
   "scripts": {
-    "precommit": "npm run verify",
     "verify": "run-s lint verify:test build",
     "verify:test": "npm run test -- --reporter progress --forbid-pending --forbid-only",
     "lint": "run-s lint-*",
@@ -43,19 +42,19 @@
   "homepage": "https://github.com/shroudedcode/contro#readme",
   "devDependencies": {
     "@types/chai": "^4.0.10",
-    "@types/fs-extra": "^5.0.0",
-    "@types/mocha": "^2.2.44",
+    "@types/fs-extra": "^7.0.0",
+    "@types/mocha": "^5.2.6",
     "@types/node": "^8.5.2",
     "chai": "^4.1.2",
     "codecov": "^3.0.0",
-    "commitizen": "^2.9.6",
+    "commitizen": "^3.1.1",
     "cz-conventional-changelog": "^2.1.0",
-    "fs-extra": "^5.0.0",
-    "husky": "^0.14.3",
-    "mocha": "^4.0.1",
+    "fs-extra": "^8.0.1",
+    "husky": "^2.3.0",
+    "mocha": "^6.1.4",
     "npm-run-all": "^4.1.2",
-    "nyc": "^11.4.1",
-    "remark-cli": "^4.0.0",
+    "nyc": "^14.1.1",
+    "remark-cli": "^6.0.1",
     "remark-lint": "^6.0.1",
     "remark-lint-no-empty-url": "^1.0.2",
     "remark-preset-lint-markdown-style-guide": "^2.1.1",
@@ -63,7 +62,7 @@
     "rimraf": "^2.6.2",
     "rollup": "^0.53.0",
     "rollup-plugin-typescript": "^0.8.1",
-    "semantic-release": "^11.0.2",
+    "semantic-release": "^15.13.12",
     "ts-node": "^4.1.0",
     "tslint": "^5.8.0",
     "typescript": "^2.6.2",
@@ -73,6 +72,11 @@
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run verify"
     }
   }
 }

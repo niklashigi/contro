@@ -7,6 +7,7 @@
     ["remark-lint-heading-increment", false],
     ["remark-lint-unordered-list-marker-style", "*"],
     ["remark-lint-no-duplicate-headings", false],
-    ["remark-lint-list-item-spacing", false]
+    ["remark-lint-list-item-spacing", false],
+    ["remark-lint-ordered-list-marker-value", false]
   ]
 }
