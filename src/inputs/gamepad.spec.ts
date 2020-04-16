@@ -106,6 +106,14 @@ describe('The `Gamepad` class', () => {
 
     })
 
+    describe('should have a `stick()` method that returns a component that', () => {
+
+      it('returns a zero vector when queried', () => {
+        expect(gamepad.stick('left').query()).to.deep.equal({ x: 0, y: 0 })
+      })
+
+    })
+
   })
 
   describe('in its connected state', () => {
