@@ -10,7 +10,6 @@ export class Mouse {
   private canvas: ICanvas
   private document: IDocument
 
-  private pointerLocked: boolean = false
   private pointerMovement: Vector2 = new Vector2()
   private pressedButtons: Set<number> = new Set()
   private queuedButtons: Set<number> = new Set()
@@ -65,20 +64,24 @@ export class Mouse {
   }
 
   public button(button: string | number): TriggerControl<boolean> {
-    const that = this
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const mouse = this
+
     button = this.parseButton(button)
     return {
       label: ['Left', 'Middle', 'Right'][button] + ' Mouse Button',
       query() {
-        button = that.parseButton(button)
+        button = mouse.parseButton(button)
+
+        // eslint-disable-next-line no-prototype-builtins
         if (!this.hasOwnProperty('trigger')) {
-          if (that.queuedButtons.has(button)) {
-            that.queuedButtons.delete(button)
+          if (mouse.queuedButtons.has(button)) {
+            mouse.queuedButtons.delete(button)
             return true
           }
           return false
         } else {
-          return that.pressedButtons.has(button)
+          return mouse.pressedButtons.has(button)
         }
       },
       get trigger() {
@@ -99,7 +102,7 @@ export class Mouse {
     }
   }
 
-  public wheel() {
+  public wheel(): Control<number> {
     return {
       label: 'Mouse wheel',
       query: () => {
@@ -110,15 +113,15 @@ export class Mouse {
     }
   }
 
-  public lockPointer() {
+  public lockPointer(): void {
     this.canvas.requestPointerLock()
   }
 
-  public unlockPointer() {
+  public unlockPointer(): void {
     this.document.exitPointerLock()
   }
 
-  public isPointerLocked() {
+  public isPointerLocked(): boolean {
     return this.document.pointerLockElement === this.canvas
   }
 

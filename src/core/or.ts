@@ -6,11 +6,11 @@ export function or(...controls: Control<any>[]): Control<any> {
 
   return {
     get label() {
-      return (controls.filter(control => control.fromGamepad).length === 0 ?
-          controls[0]
-          : store.preferGamepad ?
-            controls.filter(control => control.fromGamepad === true)[0]
-            : controls.filter(control => control.fromGamepad !== true)[0]).label
+      return (controls.filter(control => control.fromGamepad).length === 0
+        ? controls[0]
+        : store.preferGamepad
+          ? controls.filter(control => control.fromGamepad === true)[0]
+          : controls.filter(control => control.fromGamepad !== true)[0]).label
     },
     query: () => {
       let sampleQueryValue

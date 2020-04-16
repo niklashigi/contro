@@ -7,7 +7,7 @@ export interface Control<T> {
   query(): T
 
   /* Required for utility function in `or.spec.ts` to work. */
-  [ key: string ]: any;
+  [ key: string ]: any
 
 }
 

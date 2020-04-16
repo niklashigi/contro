@@ -1,6 +1,7 @@
 import { expect } from 'chai'
-import * as Mocha from 'mocha'
-import { findButtonNumber, getButtonLabel } from './gamepad'
+import { describe, it } from 'mocha'
+
+import { findButtonNumber } from './gamepad'
 
 describe('The `Gamepad` mapping helper function', () => {
 

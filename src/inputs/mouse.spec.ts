@@ -1,5 +1,6 @@
 import { expect } from 'chai'
-import * as Mocha from 'mocha'
+import { describe, it } from 'mocha'
+
 import { ICanvas, IDocument } from '../apis'
 import { Vector2 } from '../utils/math'
 import { MockEventTarget } from '../utils/mock'
@@ -9,7 +10,7 @@ class MockCanvas extends MockEventTarget implements ICanvas {
 
   public pointerLockRequested = false
 
-  public requestPointerLock() {
+  public requestPointerLock(): void {
     this.pointerLockRequested = true
   }
 
@@ -17,11 +18,11 @@ class MockCanvas extends MockEventTarget implements ICanvas {
 
 class MockDocument extends MockEventTarget implements IDocument {
 
-  public pointerLockElement: any
+  public pointerLockElement?: any
 
   public pointerLockExited = false
 
-  public exitPointerLock() {
+  public exitPointerLock(): void {
     this.pointerLockExited = true
   }
 

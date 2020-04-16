@@ -1,5 +1,6 @@
 import { expect } from 'chai'
-import * as Mocha from 'mocha'
+import { describe, it } from 'mocha'
+
 import { IGamepad, IGamepadButton, INavigator, IWindow  } from '../apis'
 import store from '../store'
 import { Vector2 } from '../utils/math'
@@ -12,7 +13,7 @@ class MockNavigator extends MockEventTarget implements INavigator {
 
   public gamepads: IGamepad[] = []
 
-  public getGamepads() {
+  public getGamepads(): IGamepad[] {
     return this.gamepads
   }
 
@@ -20,16 +21,22 @@ class MockNavigator extends MockEventTarget implements INavigator {
 
 class MockGamepad implements IGamepad {
 
-  public index: number = 0
+  public index = 0
   public buttons: IGamepadButton[] = []
   public axes: number[] = []
-  public connected: boolean = true
-  public timestamp: number = 0
-  public mapping: string = 'standard'
+  public connected = true
+  public timestamp = 0
+  public mapping = 'standard'
 
 }
 
-function mockPack() {
+interface MockPack {
+  win: MockWindow
+  nav: MockNavigator
+  gamepad: Gamepad
+}
+
+function mockPack(): MockPack {
   const win = new MockWindow()
   const nav = new MockNavigator()
   const gamepad = new Gamepad({ win, nav })
@@ -39,7 +46,7 @@ function mockPack() {
 describe('The `Gamepad` class', () => {
 
   it('should register the required listeners on the window', () => {
-    const { win, nav, gamepad } = mockPack()
+    const { win } = mockPack()
 
     expect(Object.keys(win.listeners).sort()).to.deep.equal([
       'gamepadconnected',
@@ -88,7 +95,7 @@ describe('The `Gamepad` class', () => {
 
   describe('in its disconnected state', () => {
 
-    const { win, nav, gamepad } = mockPack()
+    const { gamepad } = mockPack()
 
     it('should set `store.preferGamepad` to `false`', () => {
       expect(store.preferGamepad).to.equal(false)

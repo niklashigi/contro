@@ -42,12 +42,17 @@ export class Keyboard {
   }
 
   public key(key: string): TriggerControl<boolean> {
-    const that = this
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const keyboard = this
+
     key = findKeyValue(key)
     return {
       label: getKeyLabel(key),
       query() {
-        return this.hasOwnProperty('trigger') ? that.pressedKeys.has(key) : that.queuedKeys.delete(key)
+        // eslint-disable-next-line no-prototype-builtins
+        return this.hasOwnProperty('trigger')
+          ? keyboard.pressedKeys.has(key)
+          : keyboard.queuedKeys.delete(key)
       },
       get trigger() {
         delete this.trigger

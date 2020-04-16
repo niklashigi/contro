@@ -52,7 +52,7 @@ export class Gamepad {
     })
   }
 
-  public isConnected() {
+  public isConnected(): boolean {
     return this.gamepadIndex !== undefined && this.gamepad.connected
   }
 
@@ -65,26 +65,30 @@ export class Gamepad {
   }
 
   public button(button: number | string): TriggerControl<boolean> {
-    const that = this
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const gamepad = this
+
     const buttonNumber = findButtonNumber(button)
     return {
       label: getButtonLabel(buttonNumber),
       fromGamepad: true,
       query() {
-        if (!that.isConnected()) return false
+        if (!gamepad.isConnected()) return false
+
+        // eslint-disable-next-line no-prototype-builtins
         if (!this.hasOwnProperty('trigger')) {
           /* istanbul ignore else */
-          if (that.gamepad.buttons[buttonNumber].pressed) {
-            if (!that.pressedButtons.has(buttonNumber)) {
-              that.pressedButtons.add(buttonNumber)
+          if (gamepad.gamepad.buttons[buttonNumber].pressed) {
+            if (!gamepad.pressedButtons.has(buttonNumber)) {
+              gamepad.pressedButtons.add(buttonNumber)
               return true
             }
           } else {
-            that.pressedButtons.delete(buttonNumber)
+            gamepad.pressedButtons.delete(buttonNumber)
           }
           return false
         } else {
-          return that.gamepad.buttons[buttonNumber].pressed
+          return gamepad.gamepad.buttons[buttonNumber].pressed
         }
       },
       get trigger() {

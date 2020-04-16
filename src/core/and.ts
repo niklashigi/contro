@@ -10,7 +10,8 @@ export function and(...controls: Control<boolean>[]): Control<boolean> {
         /* istanbul ignore else */
         if (!control.query()) return false
       }
-        /* istanbul ignore next */
+
+      /* istanbul ignore next */
       return true
     },
   }

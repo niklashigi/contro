@@ -1,5 +1,6 @@
 import { expect } from 'chai'
-import * as Mocha from 'mocha'
+import { describe, it } from 'mocha'
+
 import { IDocument } from '../apis'
 import store from '../store'
 import { Vector2 } from '../utils/math'
@@ -8,11 +9,11 @@ import { Keyboard } from './keyboard'
 
 class MockDocument extends MockEventTarget implements IDocument {
 
-  public keyDown(key: string) {
+  public keyDown(key: string): void {
     this.listeners.keydown({ key })
   }
 
-  public keyUp(key: string) {
+  public keyUp(key: string): void {
     this.listeners.keyup({ key })
   }
 
@@ -102,7 +103,8 @@ describe('The `Keyboard` class', () => {
 
     describe('when initialized with a valid set of arrow keys and queried', () => {
 
-      const dirKeys = () => keyboard.directionalKeys('wasd').query()
+      const dirKeys: () => Vector2 =
+        () => keyboard.directionalKeys('wasd').query()
 
       it('returns a (0, 0) vector when none of the keys is pressed', () => {
         expect(dirKeys()).to.deep.equal(new Vector2(0, 0))
