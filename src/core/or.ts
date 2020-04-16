@@ -1,7 +1,7 @@
 import store from '../store'
 import { Control } from './control'
 
-export function or(...controls: Array<Control<any>>): Control<any> {
+export function or(...controls: Control<any>[]): Control<any> {
   if (controls.length < 2) throw new Error('Less than two controls specified!')
 
   return {
