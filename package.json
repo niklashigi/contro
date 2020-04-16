@@ -12,8 +12,6 @@
     "dist/**/*.d.ts"
   ],
   "scripts": {
-    "verify": "run-s lint verify:test build",
-    "verify:test": "npm run test -- --reporter progress --forbid-pending --forbid-only",
     "lint": "run-s lint-*",
     "lint-ts": "tslint -p .",
     "lint-md": "remark .",
@@ -50,7 +48,6 @@
     "codecov": "^3.6.5",
     "commitizen": "^4.0.4",
     "cz-conventional-changelog": "^3.1.0",
-    "husky": "^4.2.5",
     "mocha": "^7.1.1",
     "npm-run-all": "^4.1.2",
     "nyc": "^15.0.1",
@@ -72,11 +69,6 @@
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
-    }
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run verify"
     }
   }
 }
