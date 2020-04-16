@@ -106,11 +106,15 @@ export class Gamepad {
       gpStick = stick
     }
 
-    const {gamepad} = this
     return {
       label: gpStick.label,
-      query() {
-        return new Vector2(gamepad.axes[gpStick.xAxis], gamepad.axes[gpStick.yAxis])
+      query: () => {
+        if (!this.isConnected()) return new Vector2(0, 0)
+
+        return new Vector2(
+          this.gamepad.axes[gpStick.xAxis],
+          this.gamepad.axes[gpStick.yAxis],
+        )
       },
     }
   }
