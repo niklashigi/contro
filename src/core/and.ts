@@ -7,11 +7,9 @@ export function and(...controls: Control<boolean>[]): Control<boolean> {
     label: controls.map(control => control.label).join(' + '),
     query: () => {
       for (const control of controls) {
-        /* istanbul ignore else */
         if (!control.query()) return false
       }
 
-      /* istanbul ignore next */
       return true
     },
   }

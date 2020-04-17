@@ -10,24 +10,20 @@ import { Gamepad } from './gamepad'
 class MockWindow extends MockEventTarget implements IWindow {}
 
 class MockNavigator extends MockEventTarget implements INavigator {
-
   public gamepads: IGamepad[] = []
 
   public getGamepads(): IGamepad[] {
     return this.gamepads
   }
-
 }
 
 class MockGamepad implements IGamepad {
-
   public index = 0
   public buttons: IGamepadButton[] = []
   public axes: number[] = []
   public connected = true
-  public timestamp = 0
+  public timestamp = 1000
   public mapping = 'standard'
-
 }
 
 interface MockPack {
@@ -55,6 +51,7 @@ describe('The `Gamepad` class', () => {
   })
 
   describe('should have an `isConnected()` method that', () => {
+
     const { win, nav, gamepad } = mockPack()
 
     it('returns `false` before any gamepad was connected', () => {
@@ -131,9 +128,7 @@ describe('The `Gamepad` class', () => {
       nav.gamepads[0] = {
         index: 0,
         buttons: [
-          {
-            pressed: false,
-          },
+          { pressed: false },
         ],
         axes: [0, 0, 0, 0],
         connected: true,
@@ -141,6 +136,26 @@ describe('The `Gamepad` class', () => {
         mapping: 'standard',
       }
       win.listeners.gamepadconnected({ gamepad: nav.gamepads[0] })
+    })
+
+    it('should not allow another gamepad to be connected', () => {
+      nav.gamepads[1] = {
+        index: 1,
+        buttons: [
+          { pressed: true },
+        ],
+        axes: [0, 0, 0, 0],
+        connected: true,
+        timestamp: 0,
+        mapping: 'standard',
+      }
+      win.listeners.gamepadconnected({ gamepad: nav.gamepads[1] })
+      expect(gamepad.button(0).query()).to.equal(false)
+    })
+
+    it('should stay connected gamepad if another gamepad is disconnected', () => {
+      win.listeners.gamepaddisconnected({ gamepad: nav.gamepads[1] })
+      expect(gamepad.isConnected()).to.equal(true)
     })
 
     it('should set `store.preferGamepad` to `true`', () => {

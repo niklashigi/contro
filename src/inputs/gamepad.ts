@@ -34,21 +34,19 @@ export class Gamepad {
     this.navigator = nav
 
     this.window.addEventListener('gamepadconnected', ({ gamepad }) => {
-      /* istanbul ignore else */
-      if (!this.isConnected()) {
-        if (gamepad.mapping === 'standard') {
-          this.gamepadIndex = gamepad.index
-          store.preferGamepad = true
-        }
+      if (this.isConnected()) return
+
+      if (gamepad.mapping === 'standard') {
+        this.gamepadIndex = gamepad.index
+        store.preferGamepad = true
       }
     })
 
     this.window.addEventListener('gamepaddisconnected', ({ gamepad }) => {
-      /* istanbul ignore else */
-      if (this.gamepadIndex === gamepad.index) {
-        this.gamepadIndex = undefined
-        store.preferGamepad = false
-      }
+      if (this.gamepadIndex !== gamepad.index) return
+
+      this.gamepadIndex = undefined
+      store.preferGamepad = false
     })
   }
 
@@ -58,9 +56,12 @@ export class Gamepad {
 
   private get gamepad(): IGamepad {
     const gamepad = this.navigator.getGamepads()[this.gamepadIndex]
-    /* istanbul ignore next */
-    if (gamepad.timestamp > this.gamepadTimestamp) store.preferGamepad = true
-    this.gamepadTimestamp = gamepad.timestamp
+
+    if (gamepad.timestamp > this.gamepadTimestamp) {
+      store.preferGamepad = true
+      this.gamepadTimestamp = gamepad.timestamp
+    }
+
     return gamepad
   }
 
@@ -77,7 +78,6 @@ export class Gamepad {
 
         // eslint-disable-next-line no-prototype-builtins
         if (!this.hasOwnProperty('trigger')) {
-          /* istanbul ignore else */
           if (gamepad.gamepad.buttons[buttonNumber].pressed) {
             if (!gamepad.pressedButtons.has(buttonNumber)) {
               gamepad.pressedButtons.add(buttonNumber)

@@ -15,9 +15,12 @@ export class Mouse {
   private queuedButtons: Set<number> = new Set()
   private scrollDistance = 0
 
-  constructor({ canvas, doc = document }: { canvas: ICanvas, doc?: IDocument }) {
+  constructor(
+    { canvas, doc }: { canvas: ICanvas, doc?: IDocument },
+  ) {
     this.canvas = canvas
-    this.document = doc
+    /* istanbul ignore next */
+    this.document = doc ?? this.document
 
     const on: (type: string, listener: (event: any) => void) => void =
     this.canvas.addEventListener.bind(this.canvas)

@@ -6,24 +6,19 @@ import { Control } from './control'
 
 describe('The `and()` operator function', () => {
 
-  const controlA: Control<boolean> = {
-    label: '[A]',
-    query: () => false,
-  }
-
-  const controlB: Control<boolean> = {
-    label: '[B]',
-    query: () => true,
-  }
-
-  const control = and(controlA, controlB)
+  const controlA: Control<boolean> = { label: '[A]', query: () => true }
+  const controlB: Control<boolean> = { label: '[B]', query: () => false }
 
   it('correctly combines labels', () => {
-    expect(control.label).to.equal('[A] + [B]')
+    expect(and(controlA, controlB).label).to.equal('[A] + [B]')
   })
 
-  it('makes the combined query work as expected', () => {
-    expect(control.query()).to.equal(false)
+  it('returns `true` when all controls return `true`', () => {
+    expect(and(controlA, controlA).query()).to.equal(true)
+  })
+
+  it('returns `false` when at least one control returns `false`', () => {
+    expect(and(controlA, controlB).query()).to.equal(false)
   })
 
   it('throws an error when less than two controls are specified', () => {
