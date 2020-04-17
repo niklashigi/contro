@@ -67,29 +67,22 @@ export class Mouse {
   }
 
   public button(button: string | number): TriggerControl<boolean> {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const mouse = this
+    const buttonNumber = this.parseButton(button)
+    const label = ['Left', 'Middle', 'Right'][buttonNumber] + ' Mouse Button'
 
-    button = this.parseButton(button)
     return {
-      label: ['Left', 'Middle', 'Right'][button] + ' Mouse Button',
-      query() {
-        button = mouse.parseButton(button)
-
-        // eslint-disable-next-line no-prototype-builtins
-        if (!this.hasOwnProperty('trigger')) {
-          if (mouse.queuedButtons.has(button)) {
-            mouse.queuedButtons.delete(button)
+      label,
+      query: () => this.pressedButtons.has(buttonNumber),
+      trigger: {
+        label,
+        query: () => {
+          if (this.queuedButtons.has(buttonNumber)) {
+            this.queuedButtons.delete(buttonNumber)
             return true
           }
+
           return false
-        } else {
-          return mouse.pressedButtons.has(button)
-        }
-      },
-      get trigger() {
-        delete this.trigger
-        return this
+        },
       },
     }
   }

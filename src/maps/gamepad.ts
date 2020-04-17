@@ -25,6 +25,7 @@ export const buttonMap = [
 
 export function findButtonNumber(button: string | number): number {
   if (typeof button === 'number') return button
+
   let buttonNumber = 0
   for (const buttonAliases of buttonMap) {
     for (const buttonAlias of buttonAliases) {
@@ -32,6 +33,7 @@ export function findButtonNumber(button: string | number): number {
         return buttonNumber
       }
     }
+
     buttonNumber++
   }
 }

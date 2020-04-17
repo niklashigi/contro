@@ -23,16 +23,20 @@ export const keyMap: { [value: string]: string[] } = {
 
 export function findKeyValue(keyString: string): string {
   if (keyString.length === 1) return keyString.toLowerCase()
-  Object.keys(keyMap).forEach(keyValue => {
-    keyMap[keyValue].forEach(key => {
+
+  for (const keyValue in keyMap) {
+    for (const key of keyMap[keyValue]) {
       if (keyString.toLowerCase() === key.toLowerCase()) {
-        keyString = keyValue
+        return keyValue
       }
-    })
-  })
+    }
+  }
+
   return keyString
 }
 
 export function getKeyLabel(key: string): string {
-  return key in keyMap ? keyMap[key][0] : (key.length === 1 ? key.toUpperCase() : key)
+  if (key in keyMap) return keyMap[key][0]
+  if (key.length === 1) return key.toUpperCase()
+  return key
 }

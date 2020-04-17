@@ -29,6 +29,7 @@ module.exports = {
     'indent': ['error', 2],
     'quotes': ['error', 'single', { avoidEscape: true }],
     'comma-dangle': ['error', 'always-multiline'],
+    'no-param-reassign': 'error',
 
     'import/order': ['error', {
       'groups': ['external', 'internal'],

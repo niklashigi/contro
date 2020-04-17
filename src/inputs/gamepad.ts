@@ -5,11 +5,9 @@ import store from '../store'
 import { Vector2 } from '../utils/math'
 
 export interface GamepadStick {
-
   label: string
   xAxis: number
   yAxis: number
-
 }
 
 const gamepadSticks: { [id: string]: GamepadStick } = {
@@ -66,34 +64,33 @@ export class Gamepad {
   }
 
   public button(button: number | string): TriggerControl<boolean> {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const gamepad = this
-
     const buttonNumber = findButtonNumber(button)
-    return {
-      label: getButtonLabel(buttonNumber),
-      fromGamepad: true,
-      query() {
-        if (!gamepad.isConnected()) return false
+    const label = getButtonLabel(buttonNumber)
 
-        // eslint-disable-next-line no-prototype-builtins
-        if (!this.hasOwnProperty('trigger')) {
-          if (gamepad.gamepad.buttons[buttonNumber].pressed) {
-            if (!gamepad.pressedButtons.has(buttonNumber)) {
-              gamepad.pressedButtons.add(buttonNumber)
-              return true
-            }
-          } else {
-            gamepad.pressedButtons.delete(buttonNumber)
-          }
-          return false
-        } else {
-          return gamepad.gamepad.buttons[buttonNumber].pressed
-        }
+    return {
+      label,
+      query: () => {
+        if (!this.isConnected()) return false
+
+        return this.gamepad.buttons[buttonNumber].pressed
       },
-      get trigger() {
-        delete this.trigger
-        return this
+      fromGamepad: true,
+      trigger: {
+        label,
+        query: () => {
+          if (!this.isConnected()) return false
+
+          if (this.gamepad.buttons[buttonNumber].pressed) {
+            if (this.pressedButtons.has(buttonNumber)) return false
+
+            this.pressedButtons.add(buttonNumber)
+            return true
+          }
+
+          this.pressedButtons.delete(buttonNumber)
+          return false
+        },
+        fromGamepad: true,
       },
     }
   }
