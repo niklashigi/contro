@@ -118,6 +118,16 @@ describe('The `Gamepad` class', () => {
 
     })
 
+
+
+    describe('should have a `vibrate()` method that', () => {
+
+      it("doesn't throw an error when called", async () => {
+        await gamepad.vibrate(1000)
+      })
+
+    })
+
   })
 
   describe('in its connected state', () => {
@@ -213,6 +223,38 @@ describe('The `Gamepad` class', () => {
         nav.gamepads[0].axes[2] = .42
         nav.gamepads[0].axes[3] = .69
         expect(gamepad.stick({ label: '', xAxis: 2, yAxis: 3 }).query()).to.deep.equal(new Vector2(.42, .69))
+      })
+
+    })
+
+    describe('should have a `vibrate()` method that', () => {
+
+      it('correctly passes along the provided options', () => {
+        let playEffectArgs: any[] = []
+        nav.gamepads[0].vibrationActuator = {
+          type: 'dual-rumble',
+          playEffect: async (...args) => { playEffectArgs = args },
+        }
+
+        gamepad.vibrate(1000, { weakMagnitude: 0.5, strongMagnitude: 1 })
+
+        expect(playEffectArgs).to.deep.equal([
+          'dual-rumble',
+          { duration: 1000, weakMagnitude: 0.5, strongMagnitude: 1 },
+        ])
+      })
+
+
+
+      it('ignores actuators that are not of type `dual-rumble`', () => {
+        let playEffectCalled = false
+        nav.gamepads[0].vibrationActuator = {
+          type: 'not-dual-rumble',
+          playEffect: async () => { playEffectCalled = true },
+        }
+
+        gamepad.vibrate(1000)
+        expect(playEffectCalled).to.equal(false)
       })
 
     })

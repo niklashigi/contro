@@ -120,4 +120,23 @@ export class Gamepad {
     }
   }
 
+  public async vibrate(
+    duration: number,
+    { weakMagnitude, strongMagnitude }: VibrationOptions = {},
+  ): Promise<void> {
+    if (!this.isConnected()) return
+
+    const actuator = this.gamepad.vibrationActuator
+    if (!actuator || actuator.type !== 'dual-rumble') return
+
+    await actuator.playEffect('dual-rumble', {
+      duration, strongMagnitude, weakMagnitude,
+    })
+  }
+
+}
+
+interface VibrationOptions {
+  strongMagnitude?: number
+  weakMagnitude?: number
 }

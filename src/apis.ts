@@ -28,4 +28,22 @@ export interface IGamepad {
   connected: boolean
   timestamp: number
   mapping: string
+  vibrationActuator?: IGamepadHapticActuator
+}
+
+// Based on https://github.com/w3c/gamepad/pull/68
+// (just a proposal to the specification, but implemented in Chrome)
+export interface IGamepadHapticActuator {
+  type: string
+  playEffect(
+    type: 'dual-rumble',
+    params: IGamepadEffectParameters,
+  ): Promise<any>
+}
+
+export interface IGamepadEffectParameters {
+  duration?: number
+  startDelay?: number
+  strongMagnitude?: number
+  weakMagnitude?: number
 }
