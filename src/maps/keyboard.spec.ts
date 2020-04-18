@@ -3,7 +3,7 @@ import { describe, it } from 'mocha'
 
 import { findKeyValue, getKeyLabel } from './keyboard'
 
-describe('The ´Keyboard´ mapping helper function', () => {
+describe('The `Keyboard` mapping helper function', () => {
 
   describe('`findKeyValue()`', () => {
 
