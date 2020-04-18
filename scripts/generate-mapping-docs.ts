@@ -1,9 +1,10 @@
 import { promises as fs } from 'fs'
 import * as path from 'path'
+
 import { buttonMap } from '../src/maps/gamepad'
 import { keyMap } from '../src/maps/keyboard'
 
-function generateMappingDocs() {
+function generateMappingDocs(): void {
   generateKeyboardKeyDocs()
   generateGamepadButtonDocs()
 }
@@ -12,9 +13,9 @@ function generateMappingDocs() {
  * Generates a table documenting the valid keyboard key values, aliases and
  * the respective labels based on the key value specified in the `keyMap`.
  */
-async function generateKeyboardKeyDocs() {
-
+async function generateKeyboardKeyDocs(): Promise<void> {
   const lines: string[] = []
+
   for (const keyValue in keyMap) {
     const keyAliases = keyMap[keyValue]
     const keyLabel = keyAliases[0]
@@ -25,42 +26,42 @@ async function generateKeyboardKeyDocs() {
     ].join('|'))
   }
 
-  saveLines('keyboard-keys.md', lines)
-
+  await saveLines('keyboard-keys.md', lines)
 }
 
 /**
  * Generates a table documenting the valid gamepad button numbers, aliases and
  * respective labels based on the button numbers specified in the `buttonMap`.
  */
-async function generateGamepadButtonDocs() {
-
+async function generateGamepadButtonDocs(): Promise<void> {
   const lines: string[] = []
   let buttonNumber = 0
+
   for (const buttonAliases of buttonMap) {
     const buttonLabel = buttonAliases[0]
+
     lines.push([
       `\`${buttonNumber}\``,
       `<kbd>${buttonLabel}</kbd>`,
       `${buttonAliases.map(buttonAlias => `\`${buttonAlias}\``).join(' , ')}`,
     ].join('|'))
+
     buttonNumber++
   }
 
-  saveLines('gamepad-buttons.md', lines)
-
+  await saveLines('gamepad-buttons.md', lines)
 }
 
-async function saveLines(file: string, lines: string[]) {
-
+async function saveLines(file: string, lines: string[]): Promise<void> {
   const filePath = path.join(__dirname, '../docs', file)
   const fileContent = await fs.readFile(filePath, 'utf-8')
+
   const newFileContent = fileContent.replace(
     /(---\|---\|---\n)([\s\S]*)(\n\n)/gm,
     `$1${lines.join('\n')}$3`,
   )
-  await fs.writeFile(filePath, newFileContent)
 
+  await fs.writeFile(filePath, newFileContent)
 }
 
 generateMappingDocs()
