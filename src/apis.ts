@@ -3,12 +3,12 @@ export interface IEventTarget {
 }
 
 export interface ICanvas extends IEventTarget {
-  requestPointerLock?(): void
+  requestPointerLock(): void
 }
 
 export interface IDocument extends IEventTarget {
   pointerLockElement?: any
-  exitPointerLock?(): void
+  exitPointerLock(): void
 }
 
 export interface IWindow extends IEventTarget {}

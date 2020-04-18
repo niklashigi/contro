@@ -17,6 +17,12 @@ class MockDocument extends MockEventTarget implements IDocument {
     this.listeners.keyup({ key })
   }
 
+  public pointerLockElement?: undefined
+
+  public exitPointerLock(): void {
+    return
+  }
+
 }
 
 describe('The `Keyboard` class', () => {

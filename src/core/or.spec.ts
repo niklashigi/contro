@@ -7,7 +7,7 @@ import { or } from './or'
 
 describe('the `or()` operator function', () => {
 
-  const controlUndefined: Control<number> = {
+  const controlUndefined: Control<number | undefined> = {
     label: '',
     query: () => undefined,
   }
@@ -69,13 +69,13 @@ describe('the `or()` operator function', () => {
 
     const controlGamepad: Control<number> = {
       label: 'gamepad',
-      query: null,
+      query: () => 0,
       fromGamepad: true,
     }
 
     const controlNonGamepad: Control<number> = {
       label: 'non-gamepad',
-      query: null,
+      query: () => 0,
     }
 
     describe('is `false`', () => {
@@ -102,7 +102,7 @@ describe('the `or()` operator function', () => {
 
       const controlFirst: Control<number> = {
         label: 'first',
-        query: null,
+        query: () => 0,
       }
 
       it('return the label of the first control', () => {

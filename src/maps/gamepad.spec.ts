@@ -15,8 +15,10 @@ describe('The `Gamepad` mapping helper function', () => {
       expect(findButtonNumber('B')).to.equal(1)
     })
 
-    it('should return `undefined` for nonexistent aliases', () => {
-      expect(findButtonNumber('NonExistentButton')).to.equal(undefined)
+    it('should throw an error for nonexistent aliases', () => {
+      expect(() => findButtonNumber('NonExistentButton')).to.throw(
+        Error, 'There is no gamepad button called "NonExistentButton"!',
+      )
     })
 
   })

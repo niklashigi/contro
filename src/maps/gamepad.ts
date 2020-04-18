@@ -36,6 +36,8 @@ export function findButtonNumber(button: string | number): number {
 
     buttonNumber++
   }
+
+  throw new Error(`There is no gamepad button called "${button}"!`)
 }
 
 export function getButtonLabel(button: number): string {

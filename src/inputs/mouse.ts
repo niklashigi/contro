@@ -20,7 +20,7 @@ export class Mouse {
   ) {
     this.canvas = canvas
     /* istanbul ignore next */
-    this.document = doc ?? this.document
+    this.document = doc ?? document
 
     const on: (type: string, listener: (event: any) => void) => void =
     this.canvas.addEventListener.bind(this.canvas)

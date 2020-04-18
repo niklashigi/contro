@@ -21,7 +21,7 @@ export class Gamepad {
   private navigator: INavigator
 
   private pressedButtons: Set<number> = new Set()
-  private gamepadIndex: number
+  private gamepadIndex: number | undefined
   private gamepadTimestamp = 0
 
   constructor(
@@ -53,7 +53,7 @@ export class Gamepad {
   }
 
   private get gamepad(): IGamepad {
-    const gamepad = this.navigator.getGamepads()[this.gamepadIndex]
+    const gamepad = this.navigator.getGamepads()[this.gamepadIndex!]
 
     if (gamepad.timestamp > this.gamepadTimestamp) {
       store.preferGamepad = true

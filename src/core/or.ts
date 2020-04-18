@@ -10,8 +10,8 @@ export function or(...controls: Control<any>[]): Control<any> {
       if (!hasGamepadControls) return controls[0].label
 
       return (store.preferGamepad
-        ? controls.find(control => control.fromGamepad)
-        : controls.find(control => !control.fromGamepad)).label
+        ? controls.find(control => control.fromGamepad)!
+        : controls.find(control => !control.fromGamepad)!).label
     },
     query: () => {
       let sampleQueryValue
